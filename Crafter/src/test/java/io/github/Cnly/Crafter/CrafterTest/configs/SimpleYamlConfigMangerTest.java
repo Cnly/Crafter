@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import io.github.Cnly.Crafter.Crafter.framwork.configs.SimpleYamlConfigManager;
+import io.github.Cnly.Crafter.Crafter.framework.configs.SimpleYamlConfigManager;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
 import org.junit.Test;

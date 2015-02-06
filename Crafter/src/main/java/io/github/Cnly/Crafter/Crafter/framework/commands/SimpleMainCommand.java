@@ -1,4 +1,4 @@
-package io.github.Cnly.Crafter.Crafter.framwork.commands;
+package io.github.Cnly.Crafter.Crafter.framework.commands;
 
 import java.util.ArrayList;
 import java.util.Collections;

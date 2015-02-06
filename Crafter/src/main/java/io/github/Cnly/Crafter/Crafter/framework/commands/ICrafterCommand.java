@@ -1,4 +1,4 @@
-package io.github.Cnly.Crafter.Crafter.framwork.commands;
+package io.github.Cnly.Crafter.Crafter.framework.commands;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

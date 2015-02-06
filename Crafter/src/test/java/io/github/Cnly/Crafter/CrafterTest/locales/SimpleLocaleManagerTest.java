@@ -2,7 +2,7 @@ package io.github.Cnly.Crafter.CrafterTest.locales;
 
 import java.nio.file.Files;
 
-import io.github.Cnly.Crafter.Crafter.framwork.locales.SimpleLocaleManager;
+import io.github.Cnly.Crafter.Crafter.framework.locales.SimpleLocaleManager;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
 import org.bukkit.ChatColor;

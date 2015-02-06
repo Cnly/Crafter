@@ -1,4 +1,4 @@
-package io.github.Cnly.Crafter.Crafter.framwork.configs;
+package io.github.Cnly.Crafter.Crafter.framework.configs;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package io.github.Cnly.Crafter.Crafter.framwork.locales;
+package io.github.Cnly.Crafter.Crafter.framework.locales;
 
 import io.github.Cnly.Crafter.Crafter.utils.ResourceUtils;
 

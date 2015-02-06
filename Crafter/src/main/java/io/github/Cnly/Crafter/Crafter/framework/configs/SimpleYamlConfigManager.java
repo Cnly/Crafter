@@ -1,4 +1,4 @@
-package io.github.Cnly.Crafter.Crafter.framwork.configs;
+package io.github.Cnly.Crafter.Crafter.framework.configs;
 
 import io.github.Cnly.Crafter.Crafter.utils.ResourceUtils;
 
