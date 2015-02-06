@@ -1,7 +1,88 @@
 # Crafter
+写Bukkit插件的得力助手
 
-An assistant for writing Bukkit Plugins.
+An assistant for writing Bukkit Plugins
 
+    >>>
+    README.md 有中文和 English 两种语言版本
+    This README.md has two language versions: 中文 and English
+    >>>
+
+中文
+==
+
+Crafter 包含以下框架：
+
+commands
+---
+commands 框架可以让你:
+
+  轻松创建命令，无须担心 sender 和权限的检测
+
+  轻松创建包含子命令的主命令
+
+示例
+    
+类 MySubCommand 中:
+    
+    public MySubCommand()
+    {
+      this.setAction("sub");
+      this.setPermission("perm.node");
+      this.setPlayerNeeded(true); // 自动检查及确认 sender 是玩家
+    }
+    
+    @Override
+    protected void executeCommand(CommandSender sender, String[] args)
+    {
+      Player p = (Player)sender; // 不需要检测sender
+      p.doSomething();
+    }
+
+
+主类的 onEnable() 方法中:
+    
+    SimpleMainCommand mainCommand = new SimpleMainCommand(this);
+    mainCommand.addSubcommand(new MySubCommand());
+    getCommand("mycmd").setExecutor(mainCommand);
+
+然后，一个主命令和一个子命令就创建好啦！当你输入“/mycmd sub”时，主命令会自动找到
+action 为“sub”的子命令来执行。
+
+configs
+---
+configs 框架让你轻松创建和管理配置和数据文件
+
+示例
+    
+    // 下面这行会创建一个 config manager ，其会自动从jar中复制出默认文件config.yml
+    config = new SimpleYamlConfigManager(new File(this.getDataFolder(), "config.yml"), true);
+    Map<String, String> map = config.getStringMap("path"); // 其中有一些便利的方法
+    
+    // 看我如何创建一个数据文件管理器，虽然它不从jar复制出默认文件，但它会定时保存
+    data = new SimpleYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
+    data.setAutoSaveInterval(this, 60); // “this”是你的JavaPlugin，“60”是以秒为单位的保存间隔
+
+locales
+---
+locales 框架让你轻松管理多语言环境
+
+示例
+  
+    // 来创建一个语言环境为“zh_CN”的 locale manager ：
+    locale = new SimpleLocaleManager("zh_CN", this.getDataFolder(), true); // “true”使其自动从jar中复制
+                                                                           // /locales/zh_CN.yml 到 
+                                                                           // this.getDataFolder()
+    String localizedString = locale.getLocalizedString("msg1");
+    
+Utils
+---
+Crafter 还有些别的Util包:)
+
+
+
+English
+===
 It contains following frameworks:
 
 commands
@@ -69,4 +150,4 @@ e.g.
     
 Utils
 ---
-It also has some util classes:)
+It also has some util classes:
