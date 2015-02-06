@@ -3,6 +3,10 @@
 
 An assistant for writing Bukkit Plugins
 
+基于 MIT 协议开源
+
+Open Source License: MIT
+
     >>>
     README.md 有中文和 English 两种语言版本
     This README.md has two language versions: 中文 and English
