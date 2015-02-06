@@ -198,18 +198,21 @@ public class SimpleYamlConfigManager implements IConfigManager
     public void setAutoSaveInterval(JavaPlugin jp, int seconds)
     {
         
-        if (seconds == 0 && this.autoSaveTask != null)
+        if (seconds == 0)
         {// Turn it off!
-        
-            this.autoSaveTask.cancel();
-            this.autoSaveTask = null;
+            
+            if(this.autoSaveTask != null)
+            {
+                this.autoSaveTask.cancel();
+                this.autoSaveTask = null;
+            }
             
         }
         else
         {
             
             this.autoSaveTask = new AutoSaveTask();
-            this.autoSaveTask.runTaskTimer(jp, seconds, seconds);
+            this.autoSaveTask.runTaskTimer(jp, seconds * 20, seconds * 20);
             
         }
         
