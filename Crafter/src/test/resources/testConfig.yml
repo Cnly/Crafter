@@ -1,0 +1,9 @@
+root:
+  one:
+    list:
+      - a
+      - b
+  two:
+    alpha: a
+    beta: b
+    gamma: y
