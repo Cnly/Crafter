@@ -24,7 +24,7 @@ commands 框架可以让你:
   轻松创建命令，无须担心 sender 和权限的检测
 
   轻松创建包含子命令的主命令
-
+  
 示例
     
 类 MySubCommand 中:
@@ -56,7 +56,7 @@ action 为“sub”的子命令来执行。
 configs
 ---
 configs 框架让你轻松创建和管理配置和数据文件
-
+  
 示例
     
     // 下面这行会创建一个 config manager ，其会自动从jar中复制出默认文件config.yml
@@ -66,6 +66,16 @@ configs 框架让你轻松创建和管理配置和数据文件
     // 看我如何创建一个数据文件管理器，虽然它不从jar复制出默认文件，但它会定时保存
     data = new SimpleYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
     data.setAutoSaveInterval(this, 60); // “this”是你的JavaPlugin，“60”是以秒为单位的保存间隔
+    
+    // 1.1.0版起，有一个自动重载配置文件的方法：
+    @ReloadableConfig(priority = 2345) // 用这个注解来标注可以重载的 ConfigManager 。优先级是一个 int ，默认为0。
+                                       // 优先级越高，越先被重载。
+    arConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
+    SimpleConfigReloader scr = new SimpleConfigReloader();
+    scr.addClass(this); // 当 scr.doReload() 被调用时，它会在已经添加的类中找出里面所有可以重载的
+                        // IConfigManager ，按优先级排序，并逐个执行 load() 。
+    // 另请参见： SimpleReloadCommand 。
+    // 感谢 Dummyc0m 提出优先级的想法。
 
 locales
 ---
@@ -139,6 +149,18 @@ e.g.
     data = new SimpleYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
     data.setAutoSaveInterval(this, 60); // where "this" is your JavaPlugin, and "60" is the 
                                         // interval in seconds
+                                        
+    // Since 1.1.0, there is a new way to reload configs automatically:
+    @ReloadableConfig(priority = 2345) // Use this annotation to mark which IConfigManager should be reloaded
+                                       // automatically. The priority is an int whose default value is 0.
+                                       // An IConfigManager with a higher priority will be reloaded before those
+                                       // having lower priorities.
+    arConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
+    SimpleConfigReloader scr = new SimpleConfigReloader();
+    scr.addClass(this); // When scr.doReload() is called, it will search all classes added for all IConfigManagers
+                        // with annotation @ReloadableConfig then sort them by priority and reload one by one.
+    // See also: SimpleReloadCommand
+    // Thanks Dummyc0m for his idea of priority.
 
 locales
 ---
