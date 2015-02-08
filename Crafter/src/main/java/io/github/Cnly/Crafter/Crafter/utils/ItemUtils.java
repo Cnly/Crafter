@@ -27,4 +27,17 @@ public class ItemUtils
         
     }
     
+    public static String getIdString(ItemStack is)
+    {
+        
+        @SuppressWarnings("deprecation")
+        String result = String.valueOf(is.getTypeId());
+        short durability = is.getDurability();
+        
+        if(0 != durability)
+            result += ":" + String.valueOf(durability);
+        
+        return result;
+    }
+    
 }
