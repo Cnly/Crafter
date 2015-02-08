@@ -23,20 +23,20 @@ public interface IConfigManager
     /**
      * Copies the default file from the jar to the file
      */
-    public void copyDefaultConfig();
+    public IConfigManager copyDefaultConfig();
     
     /**
      * Copies the file specified from the jar to the file
      */
-    public void copyDefaultConfig(String resourceLocation);
+    public IConfigManager copyDefaultConfig(String resourceLocation);
     
-    public void save();
+    public IConfigManager save();
     
-    public void load();
+    public IConfigManager load();
     
     public boolean isSet(String path);
     
-    public void set(String path, Object value);
+    public IConfigManager set(String path, Object value);
     
     public Map<String, String> getStringMap(String path);
     

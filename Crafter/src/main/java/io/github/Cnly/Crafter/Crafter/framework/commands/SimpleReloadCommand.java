@@ -14,6 +14,12 @@ public class SimpleReloadCommand extends AbstractCrafterCommand
     
     private String reloadMessage = ChatColor.AQUA + "Configuration reloaded!";
     
+    public SimpleReloadCommand(String group)
+    {
+        this.reloader = new SimpleConfigReloader(group);
+        this.setAction("reload");
+    }
+    
     public SimpleReloadCommand(String group, String permission, String help)
     {
         this.reloader = new SimpleConfigReloader(group);

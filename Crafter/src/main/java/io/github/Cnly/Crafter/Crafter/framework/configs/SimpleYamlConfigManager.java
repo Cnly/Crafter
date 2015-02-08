@@ -46,9 +46,10 @@ public class SimpleYamlConfigManager implements IConfigManager
     }
     
     @Override
-    public void set(String path, Object value)
+    public SimpleYamlConfigManager set(String path, Object value)
     {
         this.yml.set(path, value);
+        return this;
     }
     
     @Override
@@ -88,13 +89,14 @@ public class SimpleYamlConfigManager implements IConfigManager
     }
     
     @Override
-    public void copyDefaultConfig()
+    public SimpleYamlConfigManager copyDefaultConfig()
     {
         this.copyDefaultConfig("/" + this.file.getName());
+        return this;
     }
     
     @Override
-    public void copyDefaultConfig(String resourceLocation)
+    public SimpleYamlConfigManager copyDefaultConfig(String resourceLocation)
     {
         try
         {
@@ -104,10 +106,11 @@ public class SimpleYamlConfigManager implements IConfigManager
         {
             throw new RuntimeException("Cannot copy default file", e);
         }
+        return this;
     }
     
     @Override
-    public void save()
+    public SimpleYamlConfigManager save()
     {
         try
         {
@@ -118,12 +121,14 @@ public class SimpleYamlConfigManager implements IConfigManager
             throw new RuntimeException(
                     "Error occurred while saving config file", e);
         }
+        return this;
     }
     
     @Override
-    public void load()
+    public SimpleYamlConfigManager load()
     {
         this.yml = YamlConfiguration.loadConfiguration(this.file);
+        return this;
     }
     
     @Override

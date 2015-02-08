@@ -72,34 +72,46 @@ public abstract class AbstractCrafterCommand implements ICrafterCommand
         return this.action;
     }
     
-    protected void setPermission(String permission)
+    @Override
+    public ICrafterCommand setPermission(String permission)
     {
         this.permission = permission;
+        return this;
     }
     
-    protected void setPlayerNeeded(boolean playerNeeded)
+    @Override
+    public ICrafterCommand setPlayerNeeded(boolean playerNeeded)
     {
         this.playerNeeded = playerNeeded;
+        return this;
     }
     
-    protected void setPermissionNotice(String permissionNotice)
+    @Override
+    public ICrafterCommand setPermissionNeededNotice(String permissionNotice)
     {
         this.permissionNotice = permissionNotice;
+        return this;
     }
     
-    protected void setPlayerNeededNotice(String playerNeededNotice)
+    @Override
+    public ICrafterCommand setPlayerNeededNotice(String playerNeededNotice)
     {
         this.playerNeededNotice = playerNeededNotice;
+        return this;
     }
     
-    protected void setAction(String action)
+    @Override
+    public ICrafterCommand setAction(String action)
     {
         this.action = action;
+        return this;
     }
     
-    protected void setHelp(String help)
+    @Override
+    public ICrafterCommand setHelp(String help)
     {
         this.help = help;
+        return this;
     }
     
     @Override

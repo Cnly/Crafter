@@ -18,6 +18,18 @@ public interface ICrafterCommand extends CommandExecutor
     
     public String getAction();
     
+    public ICrafterCommand setPlayerNeeded(boolean playerNeeded);
+    
+    public ICrafterCommand setPlayerNeededNotice(String playerNeededNotice);
+    
+    public ICrafterCommand setPermission(String permission);
+    
+    public ICrafterCommand setPermissionNeededNotice(String permissionNotice);
+    
+    public ICrafterCommand setHelp(String help);
+    
+    public ICrafterCommand setAction(String action);
+    
     public void execute(CommandSender sender, String[] args);
     
     @Override
