@@ -76,6 +76,11 @@ getCommand("mycmd").setExecutor(mainCommand);
 然后，一个主命令和一个子命令就创建好啦！当你输入`/mycmd sub`时，主命令会自动找到
 action 为`sub`的子命令来执行。
 
+```java
+// 1.1.0版起，ICrafterCommand支持一种新的使用方法：
+aCommand.setAction("action").setHelp(help).setPlayerNeeded(true)...;
+```
+
 configs
 ---
 configs 框架让你
@@ -100,6 +105,9 @@ scr.addClass(this); // 当 scr.doReload() 被调用时，它会在已经添加�
                     // IConfigManager ，按优先级排序，并逐个执行 load() 。
 // 另请参见： SimpleReloadCommand 。
 // 感谢 Dummyc0m 提出优先级的想法。
+
+// 1.1.0版起，IConfigManager支持一种新的使用方法：
+aConfigManager.load().set(path, value).set(path, value).set(...)...;
 ```
 locales
 ---
@@ -183,6 +191,11 @@ getCommand("mycmd").setExecutor(mainCommand);
 Then it's done! When you type `/mycmd sub`, the main command will automatically
 get you the subcommand with the action `sub`.
 
+```java
+// Since 1.1.0, there's a new way to use ICrafterCommand:
+aCommand.setAction("action").setHelp(help).setPlayerNeeded(true)...;
+```
+
 configs
 ---
 The configs framework lets you create and deal with config file or data file easily
@@ -211,6 +224,9 @@ scr.addClass(this); // When scr.doReload() is called, it will search all classes
                     // with annotation @ReloadableConfig then sort them by priority and reload one by one.
 // See also: SimpleReloadCommand
 // Thanks Dummyc0m for his idea of priority.
+
+// Since 1.1.0, there's a new way to use IConfigManager:
+aConfigManager.load().set(path, value).set(path, value).set(...)...;
 ```
 locales
 ---
