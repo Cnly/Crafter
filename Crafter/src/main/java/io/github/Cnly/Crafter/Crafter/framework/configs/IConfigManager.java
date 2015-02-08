@@ -21,12 +21,12 @@ public interface IConfigManager
     public byte getByte(String path);
     
     /**
-     * Copies the default file from the jar to the file if there isn't one
+     * Copies the default file from the jar to the file
      */
     public void copyDefaultConfig();
     
     /**
-     * Copies the file specified from the jar to the file if there isn't one
+     * Copies the file specified from the jar to the file
      */
     public void copyDefaultConfig(String resourceLocation);
     
