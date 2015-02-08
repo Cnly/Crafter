@@ -91,21 +91,30 @@ configs 框架让你
 // 下面这行会创建一个 config manager ，其会自动从jar中复制出默认文件config.yml
 config = new SimpleYamlConfigManager(new File(this.getDataFolder(), "config.yml"), true);
 Map<String, String> map = config.getStringMap("path"); // 其中有一些便利的方法
-
+```
+```java
 // 看我如何创建一个数据文件管理器，虽然它不从jar复制出默认文件，但它会定时保存
 data = new SimpleYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
 data.setAutoSaveInterval(this, 60); // “this”是你的JavaPlugin，“60”是以秒为单位的保存间隔
-
+```
+```java
 // 1.1.0版起，有一个自动重载配置文件的方法：
-@ReloadableConfig(priority = 2345) // 用这个注解来标注可以重载的 ConfigManager 。优先级是一个 int ，默认为0。
-                                   // 优先级越高，越先被重载。
+@ReloadableConfig(priority = 2345, group = "group1") // 用这个注解来标注可以重载的 IConfigManager 。优先级是一个 	                                                     // int ，默认为0。优先级越高，越先被重载。
+                                                     // group 用来标识该 IConfigManager 所属的组。
+                                                     // 一个 SimpleConfigReloader 只负责一个组。
 arConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
-SimpleConfigReloader scr = new SimpleConfigReloader();
-scr.addClass(this); // 当 scr.doReload() 被调用时，它会在已经添加的类中找出里面所有可以重载的
+
+@ReloadableConfig(group = "group2") // 这个注解的 group 为 group2 ， 不会被下面的 scr 重载。
+thatConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "thatConfig.yml"), true);
+
+SimpleConfigReloader scr = new SimpleConfigReloader("group1");
+scr.addClass(this); // 当 scr.doReload() 被调用时，它会在已经添加的类中找出里面所有可以重载的且属于自己负责的组的
                     // IConfigManager ，按优先级排序，并逐个执行 load() 。
+                    
 // 另请参见： SimpleReloadCommand 。
 // 感谢 Dummyc0m 提出优先级的想法。
-
+```
+```java
 // 1.1.0版起，IConfigManager支持一种新的使用方法：
 aConfigManager.load().set(path, value).set(path, value).set(...)...;
 ```
@@ -206,25 +215,38 @@ e.g.
 // jar automatically
 config = new SimpleYamlConfigManager(new File(this.getDataFolder(), "config.yml"), true);
 Map<String, String> map = config.getStringMap("path"); // Convenience methods are included
-
+```
+```java
 // Now let's create a data manager which doesn't copy anything from your jar, but
 // saves regularly
 data = new SimpleYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
 data.setAutoSaveInterval(this, 60); // where "this" is your JavaPlugin, and "60" is the 
                                     // interval in seconds
-                                    
+```
+```java
 // Since 1.1.0, there is a new way to reload configs automatically:
-@ReloadableConfig(priority = 2345) // Use this annotation to mark which IConfigManager should be reloaded
-                                   // automatically. The priority is an int whose default value is 0.
-                                   // An IConfigManager with a higher priority will be reloaded before those
-                                   // having lower priorities.
+@ReloadableConfig(priority = 2345, group = "group1") // Use this annotation to mark which IConfigManager should be
+                                                     // reloaded automatically. The priority is an int whose
+                                                     // default value is 0. The group parameter is used to mark
+                                                     // the group this IConfigManager belongs to. A 
+                                                     // SimpleConfigReloader only cares about ONE group.
+                                                     // An IConfigManager with a higher priority will be reloaded 
+                                                     // before those having lower priorities.
 arConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
-SimpleConfigReloader scr = new SimpleConfigReloader();
+
+@ReloadableConfig(group = "group2") // This annotation's group parameter is set to "group2" ,so it will NOT be
+                                    // reloaded by the scr below.
+thatConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "thatConfig.yml"), true);
+
+SimpleConfigReloader scr = new SimpleConfigReloader("group1");
 scr.addClass(this); // When scr.doReload() is called, it will search all classes added for all IConfigManagers
-                    // with annotation @ReloadableConfig then sort them by priority and reload one by one.
+                    // with annotation @ReloadableConfig and annotation param "group"==scr's group then sort them 
+                    // by priority and reload one by one.
+                    
 // See also: SimpleReloadCommand
 // Thanks Dummyc0m for his idea of priority.
-
+```
+```java
 // Since 1.1.0, there's a new way to use IConfigManager:
 aConfigManager.load().set(path, value).set(path, value).set(...)...;
 ```
