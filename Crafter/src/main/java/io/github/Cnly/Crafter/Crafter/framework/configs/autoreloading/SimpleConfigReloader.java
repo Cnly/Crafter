@@ -9,25 +9,30 @@ import java.util.List;
 
 public class SimpleConfigReloader
 {
+    private final String group;
     private ArrayList<Object> classes = new ArrayList<Object>();
+    
+    public SimpleConfigReloader()
+    {
+        this("");
+    }
+    
+    public SimpleConfigReloader(String group)
+    {
+        this.group = group;
+    }
     
     public void doReload()
     {
         this.reloadConfigs(this.searchForConfigManagers());
     }
     
-    public boolean addClass(Object classInstance)
+    public SimpleConfigReloader addClass(Object classInstance)
     {
         
-        for (Object obj : this.classes)
-        {
-            
-            if (obj.equals(classInstance))
-                return false;
-            
-        }
+        this.classes.add(classInstance);
         
-        return this.classes.add(classInstance);
+        return this;
     }
     
     public List<Object> getClasses()
@@ -60,6 +65,8 @@ public class SimpleConfigReloader
                     continue;
                 
                 ReloadableConfig rc = f.getAnnotation(ReloadableConfig.class);
+                if (!rc.group().equals(this.group))
+                    continue;
                 int priority = rc.priority();
                 
                 try
@@ -80,7 +87,7 @@ public class SimpleConfigReloader
         
         containers.sort(null);
         
-        for(ConfigContainer cc : containers)
+        for (ConfigContainer cc : containers)
             result.add(cc.getConfigManager());
         
         return result;

@@ -18,14 +18,14 @@ import io.github.Cnly.Crafter.CrafterTest.Definitions;
 public class ReloadOrderTest extends TestCase
 {
     
-    @ReloadableConfig(priority = Integer.MAX_VALUE)
+    @ReloadableConfig(priority = Integer.MAX_VALUE, group = "group1")
     private SimpleYamlConfigManager config1 = new SimpleYamlConfigManager(
             new File(Definitions.testConfigDir.toString(), "testConfig.yml"),
             true);
     @ReloadableConfig
     private IConfigManager config2 = new SimpleYamlConfigManager(new File(
             Definitions.testConfigDir.toString(), "testConfig2.yml"), false);
-    @ReloadableConfig(priority = Integer.MIN_VALUE)
+    @ReloadableConfig(priority = Integer.MIN_VALUE, group = "group1")
     private IConfigManager config3 = new SimpleYamlConfigManager(new File(
             Definitions.testConfigDir.toString(), "testConfig3.yml"), false);
     
@@ -35,7 +35,7 @@ public class ReloadOrderTest extends TestCase
             InvocationTargetException
     {
         
-        SimpleConfigReloader scr = new SimpleConfigReloader();
+        SimpleConfigReloader scr = new SimpleConfigReloader("group1");
         scr.addClass(this);
         
         Method m = scr.getClass().getDeclaredMethod("searchForConfigManagers");
@@ -47,7 +47,6 @@ public class ReloadOrderTest extends TestCase
         
         ArrayList<IConfigManager> expected = new ArrayList<>();
         expected.add(config1);
-        expected.add(config2);
         expected.add(config3);
         
         assertEquals(expected, actual);

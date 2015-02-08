@@ -10,15 +10,21 @@ import org.bukkit.command.CommandSender;
 public class SimpleReloadCommand extends AbstractCrafterCommand
 {
     
-    private SimpleConfigReloader reloader = new SimpleConfigReloader();
+    private SimpleConfigReloader reloader;
     
     private String reloadMessage = ChatColor.AQUA + "Configuration reloaded!";
     
-    public SimpleReloadCommand(String permission, String help)
+    public SimpleReloadCommand(String group, String permission, String help)
     {
+        this.reloader = new SimpleConfigReloader(group);
         this.setAction("reload");
         this.setPermission(permission);
         this.setHelp(help);
+    }
+    
+    public SimpleReloadCommand(String permission, String help)
+    {
+        this("", permission, help);
     }
     
     @Override
@@ -30,9 +36,10 @@ public class SimpleReloadCommand extends AbstractCrafterCommand
         
     }
     
-    public boolean addClass(Object classInstance)
+    public SimpleReloadCommand addClass(Object classInstance)
     {
-        return this.reloader.addClass(classInstance);
+        this.reloader.addClass(classInstance);
+        return this;
     }
     
     public boolean removeClass(Object classInstance)

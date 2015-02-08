@@ -16,5 +16,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ReloadableConfig
 {
+    String group() default "";
     int priority() default 0;
 }
