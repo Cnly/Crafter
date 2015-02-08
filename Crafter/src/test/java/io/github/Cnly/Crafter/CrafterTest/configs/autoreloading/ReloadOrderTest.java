@@ -29,6 +29,10 @@ public class ReloadOrderTest extends TestCase
     private IConfigManager config3 = new SimpleYamlConfigManager(new File(
             Definitions.testConfigDir.toString(), "testConfig3.yml"), false);
     
+    @SuppressWarnings("unused")
+    private SimpleYamlConfigManager neverReloadThis = new SimpleYamlConfigManager(new File(
+            Definitions.testConfigDir.toString(), "testConfig4.yml"), false);
+    
     @Test
     public void test() throws NoSuchMethodException, SecurityException,
             IllegalAccessException, IllegalArgumentException,
