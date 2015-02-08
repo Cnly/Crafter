@@ -14,6 +14,7 @@ Open Source License: MIT
 
 中文
 ===
+`Crafter尚在开发中，API可能经常变更。`
 
 使用方法： Maven 3 ，下载，编译，安装，依赖。
 
@@ -122,6 +123,7 @@ Crafter 还有些别的工具包:)
 
 English
 ===
+`Crafter is still under development so the API may often change.`
 
 Usage: Maven 3. Download. Compile. Install. Depend.
 If you want to remove those unused classes in your jar, consider adding the
