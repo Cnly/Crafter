@@ -131,6 +131,29 @@ locale = new SimpleLocaleManager("zh_CN", this.getDataFolder(), true); // “tru
                                                                        // this.getDataFolder()
 String localizedString = locale.getLocalizedString("msg1");
 ```
+
+notifiers
+---
+notifiers 框架让你
+* 轻松通知
+
+示例
+```java
+// 我用这个方法来通知服务器管理员：插件启动时出错了。
+// 我写出这个的原因是有时你的服务器插件太多，启动过程中的 stacktrace 太不显眼。
+
+// 在 onEnable() 中：
+public void onEnable()
+{
+    BootCompleteNotifier bcn = new BootCompleteNotifier(this, 2000); // 更多信息请查看 javadocs
+    // 加载配置或执行其它任务
+    ...
+    // 最终上面的所有代码都被执行，即插件启动成功。
+    bcn.cancel();
+}
+
+// 当然，上面只是一种使用的情况。
+```
     
 Utils
 ---
@@ -263,6 +286,30 @@ locale = new SimpleLocaleManager("zh_CN", this.getDataFolder(), true); // "true"
                                                                        // /locales/zh_CN.yml to the data folde
 String localizedString = locale.getLocalizedString("msg1");
 ```
+notifiers
+---
+The notifiers framework lets you
+* notify easily
+
+e.g.
+```java
+// I use this method to notify the server admin if there's something wrong on boot.
+// The reason I wrote this was that there're sometimes lots of plugins installed and you may not notice the
+// stacktrace or something else gave out by the plugin when the server is booting.
+
+// In onEnable():
+public void onEnable()
+{
+    BootCompleteNotifier bcn = new BootCompleteNotifier(this, 2000); // See javadocs for more info
+    // Now you can load config, etc.
+    ...
+    // Finally all code above is executed, so the boot is successful.
+    bcn.cancel();
+}
+
+// Of course, you can use the notifiers in other cases.
+```
+
 Utils
 ---
 It also has some util classes:)
