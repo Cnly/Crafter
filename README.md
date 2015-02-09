@@ -100,7 +100,7 @@ data.setAutoSaveInterval(this, 60); // “this”是你的JavaPlugin，“60”�
 ```java
 // 1.1.0版起，有一个自动重载配置文件的方法：
 @ReloadableConfig(priority = 2345, group = "group1") // 用这个注解来标注可以重载的 IConfigManager 。优先级是一个 	                                                     // int ，默认为0。优先级越高，越先被重载。
-                                                     // group 用来标识该 IConfigManager 所属的组。
+                                                     // group 用来标识该 IConfigManager 所属的组。默认为“”。
                                                      // 一个 SimpleConfigReloader 只负责一个组。
 arConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
 
@@ -228,7 +228,7 @@ data.setAutoSaveInterval(this, 60); // where "this" is your JavaPlugin, and "60"
 @ReloadableConfig(priority = 2345, group = "group1") // Use this annotation to mark which IConfigManager should be
                                                      // reloaded automatically. The priority is an int whose
                                                      // default value is 0. The group parameter is used to mark
-                                                     // the group this IConfigManager belongs to. A 
+                                                     // the group this IConfigManager belongs to. Default: "". A 
                                                      // SimpleConfigReloader only cares about ONE group.
                                                      // An IConfigManager with a higher priority will be reloaded 
                                                      // before those having lower priorities.
