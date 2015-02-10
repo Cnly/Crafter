@@ -10,27 +10,27 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import io.github.Cnly.Crafter.Crafter.framework.configs.IConfigManager;
-import io.github.Cnly.Crafter.Crafter.framework.configs.SimpleYamlConfigManager;
+import io.github.Cnly.Crafter.Crafter.framework.configs.CrafterYamlConfigManager;
 import io.github.Cnly.Crafter.Crafter.framework.configs.autoreloading.ReloadableConfig;
-import io.github.Cnly.Crafter.Crafter.framework.configs.autoreloading.SimpleConfigReloader;
+import io.github.Cnly.Crafter.Crafter.framework.configs.autoreloading.CrafterConfigReloader;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
 public class ReloadOrderTest extends TestCase
 {
     
     @ReloadableConfig(priority = Integer.MAX_VALUE, group = "group1")
-    private SimpleYamlConfigManager config1 = new SimpleYamlConfigManager(
+    private CrafterYamlConfigManager config1 = new CrafterYamlConfigManager(
             new File(Definitions.testConfigDir.toString(), "testConfig.yml"),
             true);
     @ReloadableConfig
-    private IConfigManager config2 = new SimpleYamlConfigManager(new File(
+    private IConfigManager config2 = new CrafterYamlConfigManager(new File(
             Definitions.testConfigDir.toString(), "testConfig2.yml"), false);
     @ReloadableConfig(priority = Integer.MIN_VALUE, group = "group1")
-    private IConfigManager config3 = new SimpleYamlConfigManager(new File(
+    private IConfigManager config3 = new CrafterYamlConfigManager(new File(
             Definitions.testConfigDir.toString(), "testConfig3.yml"), false);
     
     @SuppressWarnings("unused")
-    private SimpleYamlConfigManager neverReloadThis = new SimpleYamlConfigManager(new File(
+    private CrafterYamlConfigManager neverReloadThis = new CrafterYamlConfigManager(new File(
             Definitions.testConfigDir.toString(), "testConfig4.yml"), false);
     
     @Test
@@ -39,7 +39,7 @@ public class ReloadOrderTest extends TestCase
             InvocationTargetException
     {
         
-        SimpleConfigReloader scr = new SimpleConfigReloader("group1");
+        CrafterConfigReloader scr = new CrafterConfigReloader("group1");
         scr.addClass(this);
         
         Method m = scr.getClass().getDeclaredMethod("searchForConfigManagers");

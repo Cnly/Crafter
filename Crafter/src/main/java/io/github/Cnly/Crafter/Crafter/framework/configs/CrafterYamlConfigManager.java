@@ -13,7 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class SimpleYamlConfigManager implements IConfigManager
+public class CrafterYamlConfigManager implements IConfigManager
 {
     
     private final File file;
@@ -28,7 +28,7 @@ public class SimpleYamlConfigManager implements IConfigManager
      * @param copyDefault
      *            whether to call this.copyDefaultConfig() automatically
      */
-    public SimpleYamlConfigManager(File file, boolean copyDefault)
+    public CrafterYamlConfigManager(File file, boolean copyDefault)
     {
         this.file = file;
         
@@ -46,7 +46,7 @@ public class SimpleYamlConfigManager implements IConfigManager
     }
     
     @Override
-    public SimpleYamlConfigManager set(String path, Object value)
+    public CrafterYamlConfigManager set(String path, Object value)
     {
         this.yml.set(path, value);
         return this;
@@ -89,14 +89,14 @@ public class SimpleYamlConfigManager implements IConfigManager
     }
     
     @Override
-    public SimpleYamlConfigManager copyDefaultConfig()
+    public CrafterYamlConfigManager copyDefaultConfig()
     {
         this.copyDefaultConfig("/" + this.file.getName());
         return this;
     }
     
     @Override
-    public SimpleYamlConfigManager copyDefaultConfig(String resourceLocation)
+    public CrafterYamlConfigManager copyDefaultConfig(String resourceLocation)
     {
         try
         {
@@ -110,7 +110,7 @@ public class SimpleYamlConfigManager implements IConfigManager
     }
     
     @Override
-    public SimpleYamlConfigManager save()
+    public CrafterYamlConfigManager save()
     {
         try
         {
@@ -125,7 +125,7 @@ public class SimpleYamlConfigManager implements IConfigManager
     }
     
     @Override
-    public SimpleYamlConfigManager load()
+    public CrafterYamlConfigManager load()
     {
         this.yml = YamlConfiguration.loadConfiguration(this.file);
         return this;
@@ -229,7 +229,7 @@ public class SimpleYamlConfigManager implements IConfigManager
         @Override
         public void run()
         {
-            SimpleYamlConfigManager.this.save();
+            CrafterYamlConfigManager.this.save();
         }
         
     }

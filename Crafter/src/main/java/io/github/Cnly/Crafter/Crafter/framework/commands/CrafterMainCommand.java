@@ -8,12 +8,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class SimpleMainCommand extends AbstractCrafterCommand
+public class CrafterMainCommand extends AbstractCrafterCommand
 {
     
     private List<ICrafterCommand> subcommands = new ArrayList<ICrafterCommand>();
     
-    public SimpleMainCommand(JavaPlugin jp)
+    public CrafterMainCommand(JavaPlugin jp)
     {
         super.setHelp(ChatColor.AQUA + jp.getDescription().getName() + " "
                 + jp.getDescription().getVersion() + " By "

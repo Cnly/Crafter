@@ -2,33 +2,33 @@ package io.github.Cnly.Crafter.Crafter.framework.commands;
 
 import java.util.List;
 
-import io.github.Cnly.Crafter.Crafter.framework.configs.autoreloading.SimpleConfigReloader;
+import io.github.Cnly.Crafter.Crafter.framework.configs.autoreloading.CrafterConfigReloader;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-public class SimpleReloadCommand extends AbstractCrafterCommand
+public class CrafterReloadCommand extends AbstractCrafterCommand
 {
     
-    private SimpleConfigReloader reloader;
+    private CrafterConfigReloader reloader;
     
     private String reloadMessage = ChatColor.AQUA + "Configuration reloaded!";
     
-    public SimpleReloadCommand(String group)
+    public CrafterReloadCommand(String group)
     {
-        this.reloader = new SimpleConfigReloader(group);
+        this.reloader = new CrafterConfigReloader(group);
         this.setAction("reload");
     }
     
-    public SimpleReloadCommand(String group, String permission, String help)
+    public CrafterReloadCommand(String group, String permission, String help)
     {
-        this.reloader = new SimpleConfigReloader(group);
+        this.reloader = new CrafterConfigReloader(group);
         this.setAction("reload");
         this.setPermission(permission);
         this.setHelp(help);
     }
     
-    public SimpleReloadCommand(String permission, String help)
+    public CrafterReloadCommand(String permission, String help)
     {
         this("", permission, help);
     }
@@ -42,7 +42,7 @@ public class SimpleReloadCommand extends AbstractCrafterCommand
         
     }
     
-    public SimpleReloadCommand addClass(Object classInstance)
+    public CrafterReloadCommand addClass(Object classInstance)
     {
         this.reloader.addClass(classInstance);
         return this;

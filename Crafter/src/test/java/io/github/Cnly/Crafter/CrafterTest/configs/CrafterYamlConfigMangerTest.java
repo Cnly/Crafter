@@ -7,14 +7,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import io.github.Cnly.Crafter.Crafter.framework.configs.SimpleYamlConfigManager;
+import io.github.Cnly.Crafter.Crafter.framework.configs.CrafterYamlConfigManager;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
 import org.junit.Test;
 
 import junit.framework.TestCase;
 
-public class SimpleYamlConfigMangerTest extends TestCase
+public class CrafterYamlConfigMangerTest extends TestCase
 {
     
     @Test
@@ -30,7 +30,7 @@ public class SimpleYamlConfigMangerTest extends TestCase
             e.printStackTrace();
         }
         
-        SimpleYamlConfigManager sycm = new SimpleYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), true);
+        CrafterYamlConfigManager sycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), true);
         
         assertTrue(Files.exists(Paths.get("target/test/config/testConfig.yml")));
         
@@ -50,7 +50,7 @@ public class SimpleYamlConfigMangerTest extends TestCase
         testList.add("b");
         assertEquals(testList, sycm.getStringList("root.one.list"));
         
-        sycm = new SimpleYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "404.yml"), false);
+        sycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "404.yml"), false);
         sycm.set("a", "v");
         sycm.save();
         assertEquals("v", sycm.getString("a"));

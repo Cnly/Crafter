@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class SimpleDataBaseConnectionManager implements IDatabaseConnectionManager
+public class CrafterDataBaseConnectionManager implements IDatabaseConnectionManager
 {
     
     private Connection connection;
@@ -135,7 +135,7 @@ public class SimpleDataBaseConnectionManager implements IDatabaseConnectionManag
         return dbType;
     }
     
-    public SimpleDataBaseConnectionManager setDbType(String dbType)
+    public CrafterDataBaseConnectionManager setDbType(String dbType)
     {
         this.dbType = dbType;
         return this;
@@ -146,7 +146,7 @@ public class SimpleDataBaseConnectionManager implements IDatabaseConnectionManag
         return host;
     }
     
-    public SimpleDataBaseConnectionManager setHost(String host)
+    public CrafterDataBaseConnectionManager setHost(String host)
     {
         this.host = host;
         return this;
@@ -157,7 +157,7 @@ public class SimpleDataBaseConnectionManager implements IDatabaseConnectionManag
         return port;
     }
     
-    public SimpleDataBaseConnectionManager setPort(int port)
+    public CrafterDataBaseConnectionManager setPort(int port)
     {
         this.port = port;
         return this;
@@ -168,7 +168,7 @@ public class SimpleDataBaseConnectionManager implements IDatabaseConnectionManag
         return username;
     }
     
-    public SimpleDataBaseConnectionManager setUsername(String username)
+    public CrafterDataBaseConnectionManager setUsername(String username)
     {
         this.username = username;
         return this;
@@ -179,7 +179,7 @@ public class SimpleDataBaseConnectionManager implements IDatabaseConnectionManag
         return password;
     }
     
-    public SimpleDataBaseConnectionManager setPassword(String password)
+    public CrafterDataBaseConnectionManager setPassword(String password)
     {
         this.password = password;
         return this;

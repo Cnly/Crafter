@@ -2,7 +2,7 @@ package io.github.Cnly.Crafter.CrafterTest.locales;
 
 import java.nio.file.Files;
 
-import io.github.Cnly.Crafter.Crafter.framework.locales.SimpleLocaleManager;
+import io.github.Cnly.Crafter.Crafter.framework.locales.CrafterLocaleManager;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
 import org.bukkit.ChatColor;
@@ -10,14 +10,14 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 
-public class SimpleLocaleManagerTest extends TestCase
+public class CrafterLocaleManagerTest extends TestCase
 {
     
     @Test
     public void testSimpleLocaleManager()
     {
         
-        SimpleLocaleManager slm = new SimpleLocaleManager("en_UK",
+        CrafterLocaleManager slm = new CrafterLocaleManager("en_UK",
                 Definitions.testLocaleDir.toFile(), true);
         
         assertTrue(Files.exists(Definitions.testLocaleDir));

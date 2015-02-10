@@ -12,7 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class SimpleLocaleManager implements ILocaleManager
+public class CrafterLocaleManager implements ILocaleManager
 {
     
     private String locale;
@@ -29,7 +29,7 @@ public class SimpleLocaleManager implements ILocaleManager
      * @param copyDefault
      *            whether to call copyDefaultLocaleFile() automatically
      */
-    public SimpleLocaleManager(String locale, File localeDirectory,
+    public CrafterLocaleManager(String locale, File localeDirectory,
             boolean copyDefault)
     {
         

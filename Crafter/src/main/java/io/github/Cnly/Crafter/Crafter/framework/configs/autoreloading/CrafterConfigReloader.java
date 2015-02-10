@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SimpleConfigReloader
+public class CrafterConfigReloader
 {
     private final String group;
     private ArrayList<Object> classes = new ArrayList<Object>();
     
-    public SimpleConfigReloader()
+    public CrafterConfigReloader()
     {
         this("");
     }
     
-    public SimpleConfigReloader(String group)
+    public CrafterConfigReloader(String group)
     {
         this.group = group;
     }
@@ -27,7 +27,7 @@ public class SimpleConfigReloader
         this.reloadConfigs(this.searchForConfigManagers());
     }
     
-    public SimpleConfigReloader addClass(Object classInstance)
+    public CrafterConfigReloader addClass(Object classInstance)
     {
         
         this.classes.add(classInstance);
