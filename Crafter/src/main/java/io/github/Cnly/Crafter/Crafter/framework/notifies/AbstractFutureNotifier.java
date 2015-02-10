@@ -34,13 +34,10 @@ public abstract class AbstractFutureNotifier implements IFutureNotifier
         
         StringBuilder sb = new StringBuilder(48);
         if (this.redPrefix)
-            sb.append(ChatColor.RED.toString());
-        sb.append('[');
-        sb.append(jp.getDescription().getName());
-        sb.append(' ');
-        sb.append(this.logLevel.toString());
-        sb.append("] ");
-        sb.append(this.message);
+            sb.append(ChatColor.RED.toString()).append('[')
+                    .append(jp.getDescription().getName()).append(' ')
+                    .append(this.logLevel.toString()).append("] ")
+                    .append(this.message);
         
         String msgToSend = sb.toString();
         
