@@ -42,7 +42,7 @@ Crafter 包含以下框架：
 
 commands
 ---
-commands 框架让你
+commands 框架
 
 * 轻松创建命令，无须费心检测 sender 和权限
 
@@ -83,7 +83,7 @@ aCommand.setAction("action").setHelp(help).setPlayerNeeded(true)...;
 
 configs
 ---
-configs 框架让你
+configs 框架
 * 轻松创建和管理配置和数据文件
   
 示例
@@ -121,7 +121,7 @@ aConfigManager.load().set(path, value).set(path, value).set(...)...;
 
 databases
 ---
-databases 框架让你
+databases 框架
 * 轻松连接数据库
 
 示例
@@ -133,7 +133,7 @@ sdcm.close();
 
 locales
 ---
-locales 框架让你
+locales 框架
 * 轻松管理多语言环境
 
 示例
@@ -147,7 +147,7 @@ String localizedString = locale.getLocalizedString("msg1");
 
 notifiers
 ---
-notifiers 框架让你
+notifiers 框架
 * 轻松通知
 
 示例
@@ -204,7 +204,7 @@ It contains following frameworks:
 
 commands
 ---
-The commands framework lets you
+The commands framework
 * Create your commands without the need to worry about the checking of sender or permission
 * Create your main command with subcommands quickly
 
@@ -243,7 +243,8 @@ aCommand.setAction("action").setHelp(help).setPlayerNeeded(true)...;
 
 configs
 ---
-The configs framework lets you create and deal with config file or data file easily
+The configs framework
+* create and deal with config file or data file easily
 
 e.g.
 ```java
@@ -288,7 +289,7 @@ aConfigManager.load().set(path, value).set(path, value).set(...)...;
 ```
 databases
 ---
-The databases framework lets you
+The databases framework
 * easily connect to your databases
 
 e.g.
@@ -300,7 +301,7 @@ sdcm.close();
 
 locales
 ---
-The locales framework lets you
+The locales framework
 * easily get localized strings
 
 e.g.
@@ -313,7 +314,7 @@ String localizedString = locale.getLocalizedString("msg1");
 ```
 notifiers
 ---
-The notifiers framework lets you
+The notifiers framework
 * notify easily
 
 e.g.
