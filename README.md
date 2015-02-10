@@ -118,6 +118,19 @@ scr.addClass(this); // 当 scr.doReload() 被调用时，它会在已经添加�
 // 1.1.0版起，IConfigManager支持一种新的使用方法：
 aConfigManager.load().set(path, value).set(path, value).set(...)...;
 ```
+
+databases
+---
+databases 框架让你
+* 轻松连接数据库
+
+示例
+```java
+SimpleDataBaseConnectionManager sdcm = new SimpleDataBaseConnectionManager().setDbType("mysql").setHost("localhost").setPort(3306).setUsername("root").setPassword("changeme");
+sdcm.getConnection().preparedStatement(...)...; // sdcm.getConnection() 会确保连接可用
+sdcm.close();
+```
+
 locales
 ---
 locales 框架让你
@@ -273,6 +286,18 @@ scr.addClass(this); // When scr.doReload() is called, it will search all classes
 // Since 1.1.0, there's a new way to use IConfigManager:
 aConfigManager.load().set(path, value).set(path, value).set(...)...;
 ```
+databases
+---
+The databases framework lets you
+* easily connect to your databases
+
+e.g.
+```java
+SimpleDataBaseConnectionManager sdcm = new SimpleDataBaseConnectionManager().setDbType("mysql").setHost("localhost").setPort(3306).setUsername("root").setPassword("changeme");
+sdcm.getConnection().preparedStatement(...)...; // sdcm.getConnection() ensures the connection is ready
+sdcm.close();
+```
+
 locales
 ---
 The locales framework lets you
