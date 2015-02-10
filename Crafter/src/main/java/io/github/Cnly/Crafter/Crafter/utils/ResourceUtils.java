@@ -8,7 +8,7 @@ public class ResourceUtils
     
     private ResourceUtils()
     {
-        throw new AssertionError("This is an util class");
+        throw new AssertionError("This is a util class");
     }
     
     public static void copyFromJar(String location, File dest)

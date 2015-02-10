@@ -7,7 +7,7 @@ public class ItemUtils
     
     private ItemUtils()
     {
-        throw new AssertionError("This is an util class");
+        throw new AssertionError("This is a util class");
     }
     
     @SuppressWarnings("deprecation")

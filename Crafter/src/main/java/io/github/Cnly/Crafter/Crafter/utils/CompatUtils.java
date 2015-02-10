@@ -11,6 +11,11 @@ import org.bukkit.entity.Player;
 public class CompatUtils
 {
     
+    private CompatUtils()
+    {
+        throw new AssertionError("This is a util class");
+    }
+    
     @SuppressWarnings("unchecked")
     public static Collection<Player> getOnlinePlayers()
     {

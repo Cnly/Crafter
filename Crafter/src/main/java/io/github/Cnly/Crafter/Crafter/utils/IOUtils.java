@@ -13,7 +13,7 @@ public class IOUtils
     
     private IOUtils()
     {
-        throw new AssertionError("This is an util class");
+        throw new AssertionError("This is a util class");
     }
     
     public static void copyFileFromStream(InputStream in, File dest)
