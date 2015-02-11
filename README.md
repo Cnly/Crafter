@@ -42,7 +42,7 @@ Crafter 包含以下框架：
 
 commands
 ---
-commands 框架让你
+commands 框架
 
 * 轻松创建命令，无须费心检测 sender 和权限
 
@@ -69,7 +69,7 @@ protected void executeCommand(CommandSender sender, String[] args)
 
 主类的 `onEnable()` 方法中:
 ```java
-SimpleMainCommand mainCommand = new SimpleMainCommand(this);
+CrafterMainCommand mainCommand = new CrafterMainCommand(this);
 mainCommand.addSubcommand(new MySubCommand());
 getCommand("mycmd").setExecutor(mainCommand);
 ```
@@ -83,35 +83,35 @@ aCommand.setAction("action").setHelp(help).setPlayerNeeded(true)...;
 
 configs
 ---
-configs 框架让你
+configs 框架
 * 轻松创建和管理配置和数据文件
   
 示例
 ```java
 // 下面这行会创建一个 config manager ，其会自动从jar中复制出默认文件config.yml
-config = new SimpleYamlConfigManager(new File(this.getDataFolder(), "config.yml"), true);
+config = new CrafterYamlConfigManager(new File(this.getDataFolder(), "config.yml"), true);
 Map<String, String> map = config.getStringMap("path"); // 其中有一些便利的方法
 ```
 ```java
 // 看我如何创建一个数据文件管理器，虽然它不从jar复制出默认文件，但它会定时保存
-data = new SimpleYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
+data = new CrafterYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
 data.setAutoSaveInterval(this, 60); // “this”是你的JavaPlugin，“60”是以秒为单位的保存间隔
 ```
 ```java
 // 1.1.0版起，有一个自动重载配置文件的方法：
 @ReloadableConfig(priority = 2345, group = "group1") // 用这个注解来标注可以重载的 IConfigManager 。优先级是一个 	                                                     // int ，默认为0。优先级越高，越先被重载。
                                                      // group 用来标识该 IConfigManager 所属的组。默认为“”。
-                                                     // 一个 SimpleConfigReloader 只负责一个组。
-arConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
+                                                     // 一个 CrafterConfigReloader 只负责一个组。
+arConfig = new CrafterYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
 
 @ReloadableConfig(group = "group2") // 这个注解的 group 为 group2 ， 不会被下面的 scr 重载。
-thatConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "thatConfig.yml"), true);
+thatConfig = new CrafterYamlConfigManager(new File(this.getDataFolder(), "thatConfig.yml"), true);
 
-SimpleConfigReloader scr = new SimpleConfigReloader("group1");
+CrafterConfigReloader scr = new CrafterConfigReloader("group1");
 scr.addClass(this); // 当 scr.doReload() 被调用时，它会在已经添加的类中找出里面所有可以重载的且属于自己负责的组的
                     // IConfigManager ，按优先级排序，并逐个执行 load() 。
                     
-// 另请参见： SimpleReloadCommand 。
+// 另请参见： CrafterReloadCommand 。
 // 感谢 Dummyc0m 提出优先级的想法。
 ```
 ```java
@@ -121,33 +121,33 @@ aConfigManager.load().set(path, value).set(path, value).set(...)...;
 
 databases
 ---
-databases 框架让你
+databases 框架
 * 轻松连接数据库
 
 示例
 ```java
-SimpleDataBaseConnectionManager sdcm = new SimpleDataBaseConnectionManager().setDbType("mysql").setHost("localhost").setPort(3306).setUsername("root").setPassword("changeme");
+CrafterDataBaseConnectionManager sdcm = new CrafterDataBaseConnectionManager().setDbType("mysql").setHost("localhost").setPort(3306).setUsername("root").setPassword("changeme");
 sdcm.getConnection().preparedStatement(...)...; // sdcm.getConnection() 会确保连接可用
 sdcm.close();
 ```
 
 locales
 ---
-locales 框架让你
+locales 框架
 * 轻松管理多语言环境
 
 示例
 ```java
 // 来创建一个语言环境为“zh_CN”的 locale manager ：
-locale = new SimpleLocaleManager("zh_CN", this.getDataFolder(), true); // “true”使其自动从jar中复制
-                                                                       // /locales/zh_CN.yml 到 
-                                                                       // this.getDataFolder()
+locale = new CrafterLocaleManager("zh_CN", this.getDataFolder(), true); // “true”使其自动从jar中复制
+                                                                        // /locales/zh_CN.yml 到 
+                                                                        // this.getDataFolder()
 String localizedString = locale.getLocalizedString("msg1");
 ```
 
 notifiers
 ---
-notifiers 框架让你
+notifiers 框架
 * 轻松通知
 
 示例
@@ -204,7 +204,7 @@ It contains following frameworks:
 
 commands
 ---
-The commands framework lets you
+The commands framework
 * Create your commands without the need to worry about the checking of sender or permission
 * Create your main command with subcommands quickly
 
@@ -229,7 +229,7 @@ protected void executeCommand(CommandSender sender, String[] args)
 
 And in `onEnable()` method of your main class:
 ```java
-SimpleMainCommand mainCommand = new SimpleMainCommand(this);
+CrafterMainCommand mainCommand = new CrafterMainCommand(this);
 mainCommand.addSubcommand(new MySubCommand());
 getCommand("mycmd").setExecutor(mainCommand);
 ```
@@ -243,19 +243,20 @@ aCommand.setAction("action").setHelp(help).setPlayerNeeded(true)...;
 
 configs
 ---
-The configs framework lets you create and deal with config file or data file easily
+The configs framework
+* create and deal with config file or data file easily
 
 e.g.
 ```java
 // The following line creates a config manager which gets the config.yml from your
 // jar automatically
-config = new SimpleYamlConfigManager(new File(this.getDataFolder(), "config.yml"), true);
-Map<String, String> map = config.getStringMap("path"); // Convenience methods are included
+config = new CrafterYamlConfigManager(new File(this.getDataFolder(), "config.yml"), true);
+Map<String, String> map = config.getStringMap("path"); // Convenient methods are included
 ```
 ```java
 // Now let's create a data manager which doesn't copy anything from your jar, but
 // saves regularly
-data = new SimpleYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
+data = new CrafterYamlConfigManager(new File(this.getDataFolder(), "data.yml"), false);
 data.setAutoSaveInterval(this, 60); // where "this" is your JavaPlugin, and "60" is the 
                                     // interval in seconds
 ```
@@ -265,21 +266,21 @@ data.setAutoSaveInterval(this, 60); // where "this" is your JavaPlugin, and "60"
                                                      // reloaded automatically. The priority is an int whose
                                                      // default value is 0. The group parameter is used to mark
                                                      // the group this IConfigManager belongs to. Default: "". A 
-                                                     // SimpleConfigReloader only cares about ONE group.
+                                                     // CrafterConfigReloader only cares about ONE group.
                                                      // An IConfigManager with a higher priority will be reloaded 
                                                      // before those having lower priorities.
-arConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
+arConfig = new new CrafterYamlConfigManager(new File(this.getDataFolder(), "config1.yml"), true);
 
 @ReloadableConfig(group = "group2") // This annotation's group parameter is set to "group2" ,so it will NOT be
                                     // reloaded by the scr below.
-thatConfig = new new SimpleYamlConfigManager(new File(this.getDataFolder(), "thatConfig.yml"), true);
+thatConfig = new new CrafterYamlConfigManager(new File(this.getDataFolder(), "thatConfig.yml"), true);
 
-SimpleConfigReloader scr = new SimpleConfigReloader("group1");
+CrafterConfigReloader scr = new CrafterConfigReloader("group1");
 scr.addClass(this); // When scr.doReload() is called, it will search all classes added for all IConfigManagers
                     // with annotation @ReloadableConfig and annotation param "group"==scr's group then sort them 
                     // by priority and reload one by one.
                     
-// See also: SimpleReloadCommand
+// See also: CrafterReloadCommand
 // Thanks Dummyc0m for his idea of priority.
 ```
 ```java
@@ -288,32 +289,32 @@ aConfigManager.load().set(path, value).set(path, value).set(...)...;
 ```
 databases
 ---
-The databases framework lets you
+The databases framework
 * easily connect to your databases
 
 e.g.
 ```java
-SimpleDataBaseConnectionManager sdcm = new SimpleDataBaseConnectionManager().setDbType("mysql").setHost("localhost").setPort(3306).setUsername("root").setPassword("changeme");
+CrafterDataBaseConnectionManager sdcm = new CrafterDataBaseConnectionManager().setDbType("mysql").setHost("localhost").setPort(3306).setUsername("root").setPassword("changeme");
 sdcm.getConnection().preparedStatement(...)...; // sdcm.getConnection() ensures the connection is ready
 sdcm.close();
 ```
 
 locales
 ---
-The locales framework lets you
+The locales framework
 * easily get localized strings
 
 e.g.
 ```java
 // The following line creates a locale manager with locale "zh_CN"
-locale = new SimpleLocaleManager("zh_CN", this.getDataFolder(), true); // "true" tells it to copy a default
-                                                                       // locale file from jar at
-                                                                       // /locales/zh_CN.yml to the data folde
+locale = new CrafterLocaleManager("zh_CN", this.getDataFolder(), true); // "true" tells it to copy a default
+                                                                        // locale file from jar at
+                                                                        // /locales/zh_CN.yml to the data folde
 String localizedString = locale.getLocalizedString("msg1");
 ```
 notifiers
 ---
-The notifiers framework lets you
+The notifiers framework
 * notify easily
 
 e.g.
