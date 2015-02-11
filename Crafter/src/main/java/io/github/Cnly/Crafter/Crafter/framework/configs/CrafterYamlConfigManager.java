@@ -4,6 +4,7 @@ import io.github.Cnly.Crafter.Crafter.utils.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,6 +189,38 @@ public class CrafterYamlConfigManager implements IConfigManager
         return (List<Double>)this.yml.getList(path);
     }
     
+    public <E> CrafterYamlConfigManager addToList(String path, E obj)
+    {
+        
+        @SuppressWarnings("unchecked")
+        List<E> l = (List<E>)this.yml.getList(path);
+        
+        if (null == l)
+            l = new ArrayList<E>();
+        
+        l.add(obj);
+        
+        this.yml.set(path, l);
+        
+        return this;
+    }
+    
+    public <E> CrafterYamlConfigManager removeFromList(String path, E obj)
+    {
+        
+        @SuppressWarnings("unchecked")
+        List<E> l = (List<E>)this.yml.getList(path);
+        
+        if (null == l)
+            return this;
+        
+        l.remove(obj);
+        
+        this.yml.set(path, l);
+        
+        return this;
+    }
+    
     public YamlConfiguration getYamlConfig()
     {
         return this.yml;
@@ -205,8 +238,8 @@ public class CrafterYamlConfigManager implements IConfigManager
         
         if (seconds == 0)
         {// Turn it off!
-            
-            if(this.autoSaveTask != null)
+        
+            if (this.autoSaveTask != null)
             {
                 this.autoSaveTask.cancel();
                 this.autoSaveTask = null;
