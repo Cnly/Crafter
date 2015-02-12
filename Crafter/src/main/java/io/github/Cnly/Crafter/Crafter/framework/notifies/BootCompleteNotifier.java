@@ -19,6 +19,17 @@ public class BootCompleteNotifier extends AbstractFutureNotifier implements
     private BukkitTask checkTask;
     
     /**
+     * Calls the constructor BootCompleteNotifier(jp, 2000)
+     * 
+     * @param jp
+     *            JavaPlugin used to register Listener and BukkitRunnable
+     */
+    public BootCompleteNotifier(JavaPlugin jp)
+    {
+        this(jp, 2000);
+    }
+    
+    /**
      * BootCompleteNotifier send its notify message when
      * System.currentTimeMillis() - lastPluginEnableTime >= delay.
      * 
