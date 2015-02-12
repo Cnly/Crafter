@@ -20,6 +20,7 @@ public class CrafterYamlConfigManager implements IConfigManager
     private final File file;
     private YamlConfiguration yml;
     private AutoSaveTask autoSaveTask = null;
+    private JavaPlugin jp;
     
     /**
      * The constructor
@@ -28,10 +29,15 @@ public class CrafterYamlConfigManager implements IConfigManager
      *            the config file
      * @param copyDefault
      *            whether to call this.copyDefaultConfig() automatically
+     * @param jp
+     *            the JavaPlugin used to get resource from. If you don't need to
+     *            copy the config file from the jar, this can be null.
      */
-    public CrafterYamlConfigManager(File file, boolean copyDefault)
+    public CrafterYamlConfigManager(File file, boolean copyDefault,
+            JavaPlugin jp)
     {
         this.file = file;
+        this.jp = jp;
         
         if (copyDefault && !file.exists())
             this.copyDefaultConfig();
@@ -101,7 +107,7 @@ public class CrafterYamlConfigManager implements IConfigManager
     {
         try
         {
-            ResourceUtils.copyFromJar(resourceLocation, this.file);
+            ResourceUtils.copyFromJar(jp, resourceLocation, this.file);
         }
         catch (IOException e)
         {
