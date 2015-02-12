@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -81,11 +82,18 @@ public class CrafterLocaleManager implements ILocaleManager
                     + ".yml is not valid!", e);
         }
         
-        for (String key : yc.getKeys(false))
-            this.stringMappings.put(
-                    key,
-                    ChatColor.translateAlternateColorCodes('&',
-                            yc.getString(key)));
+        for (String key : yc.getKeys(true))
+        {
+            
+            Object o = yc.get(key);
+            
+            if (o instanceof ConfigurationSection)
+                continue;
+            
+            this.stringMappings.put(key,
+                    ChatColor.translateAlternateColorCodes('&', (String)o));
+            
+        }
         
     }
     

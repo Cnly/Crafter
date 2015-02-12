@@ -1,3 +1,8 @@
 stringA: AAA
 stringB: BBB
 stringColour: '&a&cCCC'
+here:
+  msg1: '888'
+  greeting:
+    hey: hey!
+    bye: bye!
