@@ -37,9 +37,14 @@ public class CrafterReloadCommand extends AbstractCrafterCommand
     protected void executeCommand(CommandSender sender, String[] args)
     {
         
-        this.reloader.doReload();
+        this.doReload();
         sender.sendMessage(this.reloadMessage);
         
+    }
+    
+    protected void doReload()
+    {
+        this.reloader.doReload();
     }
     
     public CrafterReloadCommand addClass(Object classInstance)
