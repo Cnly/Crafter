@@ -85,7 +85,7 @@ public class CrafterConfigReloader
             
         }
         
-        containers.sort(null);
+        Collections.sort(containers);
         
         for (ConfigContainer cc : containers)
             result.add(cc.getConfigManager());
