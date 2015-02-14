@@ -1,7 +1,5 @@
 package io.github.Cnly.Crafter.Crafter.framework.configs;
 
-import io.github.Cnly.Crafter.Crafter.utils.ResourceUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,15 +10,11 @@ import java.util.Map;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class CrafterYamlConfigManager implements IConfigManager
+public class CrafterYamlConfigManager extends AbstractConfigManager
 {
     
-    private final File file;
     private YamlConfiguration yml;
-    private AutoSaveTask autoSaveTask = null;
-    private JavaPlugin jp;
     
     /**
      * The constructor
@@ -37,14 +31,8 @@ public class CrafterYamlConfigManager implements IConfigManager
     public CrafterYamlConfigManager(File file, boolean copyDefault,
             JavaPlugin jp)
     {
-        this.file = file;
-        this.jp = jp;
-        
-        if (copyDefault && !file.exists())
-            this.copyDefaultConfig();
-        
+        super(file, copyDefault, jp);
         this.yml = YamlConfiguration.loadConfiguration(file);
-        
     }
     
     @Override
@@ -94,31 +82,6 @@ public class CrafterYamlConfigManager implements IConfigManager
     public byte getByte(String path)
     {
         return (byte)this.yml.getInt(path);
-    }
-    
-    @Override
-    public CrafterYamlConfigManager copyDefaultConfig()
-    {
-        this.copyDefaultConfig("/" + this.file.getName());
-        return this;
-    }
-    
-    @Override
-    public CrafterYamlConfigManager copyDefaultConfig(String resourceLocation)
-    {
-        
-        if (null == this.jp)
-            throw new NullPointerException("JavaPlugin is null!");
-        
-        try
-        {
-            ResourceUtils.copyFromJar(jp, resourceLocation, this.file);
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException("Cannot copy default file", e);
-        }
-        return this;
     }
     
     @Override
@@ -235,63 +198,6 @@ public class CrafterYamlConfigManager implements IConfigManager
     public YamlConfiguration getYamlConfig()
     {
         return this.yml;
-    }
-    
-    @Override
-    public boolean isAutoSaveSet()
-    {
-        return this.autoSaveTask != null;
-    }
-    
-    @Override
-    public void setAutoSaveInterval(int seconds)
-    {
-        
-        if (null == this.jp)
-            throw new NullPointerException("JavaPlugin is null!");
-        
-        if (seconds == 0)
-        {// Turn it off!
-        
-            if (this.autoSaveTask != null)
-            {
-                this.autoSaveTask.cancel();
-                this.autoSaveTask = null;
-            }
-            
-        }
-        else
-        {
-            
-            this.autoSaveTask = new AutoSaveTask();
-            this.autoSaveTask.runTaskTimer(jp, seconds * 20, seconds * 20);
-            
-        }
-        
-    }
-    
-    private class AutoSaveTask extends BukkitRunnable
-    {
-        
-        @Override
-        public void run()
-        {
-            CrafterYamlConfigManager.this.save();
-        }
-        
-    }
-    
-    @Override
-    public IConfigManager setJavaPlugin(JavaPlugin jp)
-    {
-        this.jp = jp;
-        return this;
-    }
-    
-    @Override
-    public JavaPlugin getJavaPlugin()
-    {
-        return this.jp;
     }
     
 }
