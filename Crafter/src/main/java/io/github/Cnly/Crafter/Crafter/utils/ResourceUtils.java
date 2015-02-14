@@ -2,8 +2,6 @@ package io.github.Cnly.Crafter.Crafter.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
