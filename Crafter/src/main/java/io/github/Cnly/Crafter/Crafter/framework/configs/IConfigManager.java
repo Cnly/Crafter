@@ -8,6 +8,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public interface IConfigManager
 {
     
+    public IConfigManager setJavaPlugin(JavaPlugin jp);
+    
+    public JavaPlugin getJavaPlugin();
+    
     public Object getObject(String path);
     
     public String getString(String path);
@@ -60,6 +64,6 @@ public interface IConfigManager
      * @param seconds
      *            0 for off
      */
-    public void setAutoSaveInterval(JavaPlugin jp, int seconds);
+    public void setAutoSaveInterval(int seconds);
     
 }

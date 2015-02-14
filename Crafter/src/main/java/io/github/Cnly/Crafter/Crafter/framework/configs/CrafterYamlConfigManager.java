@@ -30,8 +30,9 @@ public class CrafterYamlConfigManager implements IConfigManager
      * @param copyDefault
      *            whether to call this.copyDefaultConfig() automatically
      * @param jp
-     *            the JavaPlugin used to get resource from. If you don't need to
-     *            copy the config file from the jar, this can be null.
+     *            the JavaPlugin used for resource files obtaining and task
+     *            registering. If this is null, these functions will throw
+     *            exceptions.
      */
     public CrafterYamlConfigManager(File file, boolean copyDefault,
             JavaPlugin jp)
@@ -105,6 +106,10 @@ public class CrafterYamlConfigManager implements IConfigManager
     @Override
     public CrafterYamlConfigManager copyDefaultConfig(String resourceLocation)
     {
+        
+        if (null == this.jp)
+            throw new NullPointerException("JavaPlugin is null!");
+        
         try
         {
             ResourceUtils.copyFromJar(jp, resourceLocation, this.file);
@@ -239,8 +244,11 @@ public class CrafterYamlConfigManager implements IConfigManager
     }
     
     @Override
-    public void setAutoSaveInterval(JavaPlugin jp, int seconds)
+    public void setAutoSaveInterval(int seconds)
     {
+        
+        if (null == this.jp)
+            throw new NullPointerException("JavaPlugin is null!");
         
         if (seconds == 0)
         {// Turn it off!
@@ -271,6 +279,19 @@ public class CrafterYamlConfigManager implements IConfigManager
             CrafterYamlConfigManager.this.save();
         }
         
+    }
+    
+    @Override
+    public IConfigManager setJavaPlugin(JavaPlugin jp)
+    {
+        this.jp = jp;
+        return this;
+    }
+    
+    @Override
+    public JavaPlugin getJavaPlugin()
+    {
+        return this.jp;
     }
     
 }

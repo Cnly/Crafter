@@ -32,8 +32,8 @@ public class CrafterLocaleManager implements ILocaleManager
      * @param copyDefault
      *            whether to call copyDefaultLocaleFile() automatically
      * @param jp
-     *            the JavaPlugin used to get resource from. If you don't need to
-     *            copy the locale file from the jar, this can be null.
+     *            the JavaPlugin used for resource files obtaining. If this is
+     *            null, this function will throw exceptions.
      */
     public CrafterLocaleManager(String locale, File localeDirectory,
             boolean copyDefault, JavaPlugin jp)
@@ -131,6 +131,10 @@ public class CrafterLocaleManager implements ILocaleManager
     @Override
     public void copyDefaultLocaleFile(String resourceLocation)
     {
+        
+        if (null == this.jp)
+            throw new NullPointerException("JavaPlugin is null!");
+        
         try
         {
             ResourceUtils.copyFromJar(this.jp, resourceLocation, new File(

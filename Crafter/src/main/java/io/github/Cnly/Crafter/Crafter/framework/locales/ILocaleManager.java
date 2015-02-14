@@ -37,5 +37,4 @@ public interface ILocaleManager
      */
     public void copyDefaultLocaleFile(String resourceLocation);
     
-    
 }
