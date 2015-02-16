@@ -35,50 +35,42 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         this.yml = YamlConfiguration.loadConfiguration(file);
     }
     
-    @Override
     public boolean isSet(String path)
     {
         return this.yml.isSet(path);
     }
     
-    @Override
     public CrafterYamlConfigManager set(String path, Object value)
     {
         this.yml.set(path, value);
         return this;
     }
     
-    @Override
     public Object getObject(String path)
     {
         return this.yml.get(path);
     }
     
-    @Override
     public String getString(String path)
     {
         return this.yml.getString(path);
     }
     
-    @Override
     public int getInt(String path)
     {
         return this.yml.getInt(path);
     }
     
-    @Override
     public double getDouble(String path)
     {
         return this.yml.getDouble(path);
     }
     
-    @Override
     public boolean getBoolean(String path)
     {
         return this.yml.getBoolean(path);
     }
     
-    @Override
     public byte getByte(String path)
     {
         return (byte)this.yml.getInt(path);
@@ -106,7 +98,6 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         return this;
     }
     
-    @Override
     public HashMap<String, String> getStringMap(String path)
     {
         HashMap<String, String> result = new HashMap<String, String>();
@@ -118,7 +109,6 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         return result;
     }
     
-    @Override
     public HashMap<String, Integer> getIntegerMap(String path)
     {
         HashMap<String, Integer> result = new HashMap<String, Integer>();
@@ -130,7 +120,6 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         return result;
     }
     
-    @Override
     public Map<String, Double> getDoubleMap(String path)
     {
         HashMap<String, Double> result = new HashMap<String, Double>();
@@ -143,21 +132,18 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
     }
     
     @SuppressWarnings("unchecked")
-    @Override
     public List<String> getStringList(String path)
     {
         return (List<String>)this.yml.getList(path);
     }
     
     @SuppressWarnings("unchecked")
-    @Override
     public List<Integer> getIntegerList(String path)
     {
         return (List<Integer>)this.yml.getList(path);
     }
     
     @SuppressWarnings("unchecked")
-    @Override
     public List<Double> getDoubleList(String path)
     {
         return (List<Double>)this.yml.getList(path);
