@@ -76,6 +76,26 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         return (byte)this.yml.getInt(path);
     }
     
+    /**
+     * Get the specified ConfigurationSection. If there isn't one, a new one
+     * will be created.
+     * 
+     * @param path
+     * @return ConfigurationSection
+     */
+    public ConfigurationSection getConfigurationSection(String path)
+    {
+        
+        ConfigurationSection section = this.yml.getConfigurationSection(path);
+        if (null == section)
+        {
+            section = this.yml.createSection(path);
+            this.save();
+        }
+        
+        return section;
+    }
+    
     @Override
     public CrafterYamlConfigManager save()
     {
@@ -155,7 +175,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         @SuppressWarnings("unchecked")
         List<E> l = (List<E>)this.yml.getList(path);
         
-        if (null == l)
+        if (null == l || l.isEmpty())
             l = new ArrayList<E>();
         
         l.add(obj);
@@ -171,7 +191,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         @SuppressWarnings("unchecked")
         List<E> l = (List<E>)this.yml.getList(path);
         
-        if (null == l)
+        if (null == l || l.isEmpty())
             return this;
         
         l.remove(obj);
