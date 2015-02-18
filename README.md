@@ -16,9 +16,9 @@ Open Source License: MIT
 ===
 `Crafter尚在开发中，API可能经常变更。`
 
-使用方法： Maven 3 ，下载，编译，安装，依赖。
+使用方法： Maven 3 ，下载，编译，安装，依赖。推荐把Crafter打包成独立插件。Crafter的下载将在之后放出。
 
-如果需要删除没有用到的类，可以考虑在pom中加入：
+亦可以打包进插件使用（但不推荐同时安装多个以打包形式使用Crafter的插件）。打包时如果需要删除没有用到的类，可以考虑在pom中加入：
 ```xml
         	<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -180,8 +180,8 @@ English
 ===
 `Crafter is still under development so the API may often change.`
 
-Usage: Maven 3. Download. Compile. Install. Depend.
-If you want to remove those unused classes in your jar, consider adding the
+Usage: Maven 3. Download. Compile. Install. Depend. Packing Crafter into a standalone jar is recommended. Downloads will be open later.
+You can also pack Crafter into your plugin jar(But using multiple plugins with Crafter packaged is NOT recommended). If you want to remove those unused classes in your jar, consider adding the
 following snippet to your pom:
 ```xml
         	<plugin>
