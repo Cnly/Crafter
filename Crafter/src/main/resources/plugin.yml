@@ -1,0 +1,4 @@
+name: ${project.artifactId}
+main: ${project.groupId}.${project.artifactId}.Crafter
+version: ${project.version}
+author: Cnly
