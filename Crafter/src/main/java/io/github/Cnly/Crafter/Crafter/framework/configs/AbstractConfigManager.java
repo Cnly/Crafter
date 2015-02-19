@@ -27,14 +27,35 @@ public abstract class AbstractConfigManager implements IConfigManager
      *            registering. If this is null, these functions will throw
      *            exceptions.
      */
-    public AbstractConfigManager(File file, boolean copyDefault,
-            JavaPlugin jp)
+    public AbstractConfigManager(File file, boolean copyDefault, JavaPlugin jp)
     {
         this.file = file;
         this.jp = jp;
         
         if (copyDefault && !file.exists())
             this.copyDefaultConfig();
+        
+    }
+    
+    /**
+     * Creates an empty file if there isn't one. Any directory that doesn't
+     * exist will be created as well.
+     */
+    protected void initFile()
+    {
+        
+        if (file.exists())
+            return;
+        
+        file.getParentFile().mkdirs();
+        try
+        {
+            file.createNewFile();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException("Unable to create new empty file!", e);
+        }
         
     }
     
