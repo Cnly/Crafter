@@ -59,7 +59,7 @@ public class ItemUtils
         return meta.getLore();
     }
     
-    public static void addLore(ItemStack item, String lore)
+    public static ItemStack addLore(ItemStack item, String lore)
     {
         
         ItemMeta meta = item.getItemMeta();
@@ -69,15 +69,17 @@ public class ItemUtils
         meta.setLore(lores);
         item.setItemMeta(meta);
         
+        return item;
     }
     
-    public static void setLores(ItemStack item, List<String> lores)
+    public static ItemStack setLores(ItemStack item, List<String> lores)
     {
         
         ItemMeta meta = item.getItemMeta();
         meta.setLore(lores);
         item.setItemMeta(meta);
         
+        return item;
     }
     
     public static String getDisplayName(ItemStack item)
@@ -91,13 +93,14 @@ public class ItemUtils
         return meta.getDisplayName();
     }
     
-    public static void setDisplayName(ItemStack item, String displayName)
+    public static ItemStack setDisplayName(ItemStack item, String displayName)
     {
         
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(displayName);
         item.setItemMeta(meta);
         
+        return item;
     }
     
 }
