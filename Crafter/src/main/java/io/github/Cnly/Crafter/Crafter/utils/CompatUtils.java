@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 public class CompatUtils
 {
     
+    private static Method CACHED_GETONLINEPLAYERS = null;
+    
     private CompatUtils()
     {
         throw new AssertionError("This is a util class");
@@ -20,16 +22,28 @@ public class CompatUtils
     public static Collection<Player> getOnlinePlayers()
     {
         
-        Method m;
+        Method m = CACHED_GETONLINEPLAYERS;
+        if (null == m)
+        {
+            try
+            {
+                m = Bukkit.class.getMethod("getOnlinePlayers");
+            }
+            catch (NoSuchMethodException | SecurityException e)
+            {
+                throw new RuntimeException(
+                        "Cannot get method Bukkit.getOnlinePlayers()", e);
+            }
+            CACHED_GETONLINEPLAYERS = m;
+        }
+        
         Object obj = null;
         try
         {
-            m = Bukkit.class.getMethod("getOnlinePlayers");
             obj = m.invoke(null, (Object[])null);
         }
-        catch (NoSuchMethodException | SecurityException
-                | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e)
+        catch (SecurityException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException e)
         {
             throw new RuntimeException(
                     "Cannot invoke Bukkit.getOnlinePlayers()", e);
