@@ -14,6 +14,36 @@ public abstract class AbstractConfigManager implements IConfigManager
     protected File file;
     protected AutoSaveTask autoSaveTask = null;
     protected JavaPlugin jp;
+    protected String resourceLocation = null;
+    
+    /**
+     * The constructor. This constructor will set a {@code resourceLocation} for
+     * this ConfigManager.
+     * 
+     * @see AbstractConfigManager#copyDefaultConfig()
+     * @param file
+     *            the config file
+     * @param resourceLocation
+     *            The location of the relative resource in the jar.
+     * @param copyDefault
+     *            whether to call this.copyDefaultConfig() automatically
+     * @param jp
+     *            the JavaPlugin used for resource files obtaining and task
+     *            registering. If this is null, these functions will throw
+     *            exceptions.
+     */
+    public AbstractConfigManager(File file, String resourceLocation,
+            boolean copyDefault, JavaPlugin jp)
+    {
+        
+        this.file = file;
+        this.jp = jp;
+        this.resourceLocation = resourceLocation;
+        
+        if(copyDefault && !file.exists())
+            this.copyDefaultConfig();
+        
+    }
     
     /**
      * The constructor
@@ -29,12 +59,7 @@ public abstract class AbstractConfigManager implements IConfigManager
      */
     public AbstractConfigManager(File file, boolean copyDefault, JavaPlugin jp)
     {
-        this.file = file;
-        this.jp = jp;
-        
-        if (copyDefault && !file.exists())
-            this.copyDefaultConfig();
-        
+        this(file, null, copyDefault, jp);
     }
     
     /**
@@ -44,7 +69,7 @@ public abstract class AbstractConfigManager implements IConfigManager
     protected void initFile()
     {
         
-        if (file.exists())
+        if(file.exists())
             return;
         
         file.getParentFile().mkdirs();
@@ -52,7 +77,7 @@ public abstract class AbstractConfigManager implements IConfigManager
         {
             file.createNewFile();
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             throw new RuntimeException("Unable to create new empty file!", e);
         }
@@ -72,25 +97,43 @@ public abstract class AbstractConfigManager implements IConfigManager
         return this.jp;
     }
     
+    /**
+     * Calls {@link AbstractConfigManager#copyDefaultConfig(String)} with the
+     * following parameter:<br/>
+     * {@code null == this.resourceLocation ? "/"
+                + this.file.getName() : this.resourceLocation}
+     * 
+     * @see AbstractConfigManager#copyDefaultConfig(String)
+     * @return this
+     */
     @Override
     public AbstractConfigManager copyDefaultConfig()
     {
-        this.copyDefaultConfig("/" + this.file.getName());
+        this.copyDefaultConfig(null == this.resourceLocation ? "/"
+                + this.file.getName() : this.resourceLocation);
         return this;
     }
     
+    /**
+     * Copies the resource from the jar at the location {@code resourceLocation}
+     * .
+     * 
+     * @param resourceLocation
+     *            The location of the resource in the jar.
+     * @return this
+     */
     @Override
     public AbstractConfigManager copyDefaultConfig(String resourceLocation)
     {
         
-        if (null == this.jp)
+        if(null == this.jp)
             throw new NullPointerException("JavaPlugin is null!");
         
         try
         {
             ResourceUtils.copyFromJar(jp, resourceLocation, this.file);
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             throw new RuntimeException("Unable to copy default file", e);
         }
@@ -107,13 +150,13 @@ public abstract class AbstractConfigManager implements IConfigManager
     public void setAutoSaveInterval(int seconds)
     {
         
-        if (null == this.jp)
+        if(null == this.jp)
             throw new NullPointerException("JavaPlugin is null!");
         
-        if (seconds == 0)
+        if(seconds == 0)
         {// Turn it off!
         
-            if (this.autoSaveTask != null)
+            if(this.autoSaveTask != null)
             {
                 this.autoSaveTask.cancel();
                 this.autoSaveTask = null;

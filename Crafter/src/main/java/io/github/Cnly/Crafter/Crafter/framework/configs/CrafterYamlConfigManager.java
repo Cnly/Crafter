@@ -17,6 +17,29 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
     private YamlConfiguration yml;
     
     /**
+     * The constructor. This constructor will set a {@code resourceLocation} for
+     * this ConfigManager.
+     * 
+     * @see CrafterYamlConfigManager#copyDefaultConfig()
+     * @param file
+     *            the config file
+     * @param resourceLocation
+     *            The location of the relative resource in the jar.
+     * @param copyDefault
+     *            whether to call this.copyDefaultConfig() automatically
+     * @param jp
+     *            the JavaPlugin used for resource files obtaining and task
+     *            registering. If this is null, these functions will throw
+     *            exceptions.
+     */
+    public CrafterYamlConfigManager(File file, String resourceLocation,
+            boolean copyDefault, JavaPlugin jp)
+    {
+        super(file, resourceLocation, copyDefault, jp);
+        this.yml = YamlConfiguration.loadConfiguration(file);
+    }
+
+    /**
      * The constructor
      * 
      * @param file
@@ -31,8 +54,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
     public CrafterYamlConfigManager(File file, boolean copyDefault,
             JavaPlugin jp)
     {
-        super(file, copyDefault, jp);
-        this.yml = YamlConfiguration.loadConfiguration(file);
+        this(file, null, copyDefault, jp);
     }
     
     public boolean isSet(String path)
