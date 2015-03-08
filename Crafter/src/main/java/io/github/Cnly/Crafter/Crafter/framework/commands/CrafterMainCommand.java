@@ -13,6 +13,10 @@ public class CrafterMainCommand extends AbstractCrafterCommand
     
     private List<ICrafterCommand> subcommands = new ArrayList<ICrafterCommand>();
     
+    public CrafterMainCommand()
+    {
+    }
+    
     public CrafterMainCommand(JavaPlugin jp)
     {
         super.setHelp(ChatColor.AQUA + jp.getDescription().getName() + " "
