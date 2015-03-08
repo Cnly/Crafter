@@ -18,6 +18,10 @@ public interface ICrafterCommand extends CommandExecutor
     
     public String getAction();
     
+    public int getArgumentOffset();
+    
+    public IArgumentValidator getArgumentValidator();
+    
     public ICrafterCommand setPlayerNeeded(boolean playerNeeded);
     
     public ICrafterCommand setPlayerNeededNotice(String playerNeededNotice);
@@ -29,6 +33,10 @@ public interface ICrafterCommand extends CommandExecutor
     public ICrafterCommand setHelp(String help);
     
     public ICrafterCommand setAction(String action);
+    
+    public ICrafterCommand setArgumentOffset(int offset);
+    
+    public ICrafterCommand setArgumentValidator(IArgumentValidator validator);
     
     public void execute(CommandSender sender, String[] args);
     
