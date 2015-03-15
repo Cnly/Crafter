@@ -2,11 +2,14 @@ package io.github.Cnly.Crafter.Crafter.utils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 public class IOUtils
 {
@@ -82,6 +85,49 @@ public class IOUtils
             
         }
         
+    }
+    
+    public static String readStringFromStream(InputStream is, String charset)
+    {
+        
+        InputStreamReader r;
+        try
+        {
+            r = new InputStreamReader(is, charset);
+        }
+        catch(UnsupportedEncodingException e)
+        {
+            throw new RuntimeException(e);
+        }
+        
+        char[] buf = new char[512];
+        int charsRead = 0;
+        StringBuilder sb = new StringBuilder();
+        try
+        {
+            while((charsRead = r.read(buf)) >= 0)
+            {
+                sb.append(buf, 0, charsRead);
+            }
+        }
+        catch(IOException e)
+        {
+            throw new RuntimeException("Error occurred while reading from stream", e);
+        }
+        
+        return sb.toString();
+    }
+    
+    public static String readStringFromFile(File f, String charset)
+    {
+        try
+        {
+            return readStringFromStream(new FileInputStream(f), charset);
+        }
+        catch(FileNotFoundException e)
+        {
+            throw new RuntimeException(String.format("File %s not found!", f.getName()), e);
+        }
     }
     
 }
