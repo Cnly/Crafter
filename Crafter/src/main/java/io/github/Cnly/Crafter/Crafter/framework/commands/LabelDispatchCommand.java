@@ -37,7 +37,7 @@ public class LabelDispatchCommand extends CrafterMainCommand
         else
         {
             sender.sendMessage(this.getHelp());
-            for (ICrafterCommand cc : subcommands)
+            for (ICrafterCommand cc : subcommands.values())
                 sender.sendMessage(cc.getHelp());
         }
         

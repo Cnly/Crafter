@@ -2,6 +2,7 @@ package io.github.Cnly.Crafter.Crafter.framework.commands;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -11,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CrafterMainCommand extends AbstractCrafterCommand
 {
     
-    protected List<ICrafterCommand> subcommands = new ArrayList<ICrafterCommand>();
+    protected LinkedHashMap<String, ICrafterCommand> subcommands = new LinkedHashMap<>();
     
     public CrafterMainCommand()
     {
@@ -26,28 +27,23 @@ public class CrafterMainCommand extends AbstractCrafterCommand
     
     public List<ICrafterCommand> getSubcommands()
     {
-        return Collections.unmodifiableList(this.subcommands);
+        return Collections.unmodifiableList(new ArrayList<>(this.subcommands.values()));
     }
     
     public boolean addSubcommand(ICrafterCommand sub)
     {
         
-        for (ICrafterCommand c : subcommands)
-        {
-            
-            if (c.equals(sub))
-            {
-                return false;
-            }
-            
-        }
+        String lName = sub.getAction().toLowerCase();
         
-        return subcommands.add(sub);
+        if(subcommands.containsKey(lName))
+            return false;
+        
+        return subcommands.put(lName, sub) == null;
     }
     
     public boolean removeSubcommand(ICrafterCommand sub)
     {
-        return subcommands.remove(sub);
+        return subcommands.remove(sub) != null;
     }
     
     @Override
@@ -67,7 +63,7 @@ public class CrafterMainCommand extends AbstractCrafterCommand
         else
         {
             sender.sendMessage(this.getHelp());
-            for (ICrafterCommand cc : subcommands)
+            for (ICrafterCommand cc : subcommands.values())
                 sender.sendMessage(cc.getHelp());
         }
         
@@ -76,15 +72,10 @@ public class CrafterMainCommand extends AbstractCrafterCommand
     protected ICrafterCommand searchForCommand(String action)
     {
         
-        for (ICrafterCommand c : subcommands)
-        {
-            
-            if (c.getAction().toLowerCase().equals(action))
-            {
-                return c;
-            }
-            
-        }
+        ICrafterCommand result = subcommands.get(action);
+        
+        if(null != result)
+            return result;
         
         if (!action.equals("help"))
             return this.searchForCommand("help");
