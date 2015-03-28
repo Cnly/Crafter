@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CrafterMainCommand extends AbstractCrafterCommand
 {
     
-    private List<ICrafterCommand> subcommands = new ArrayList<ICrafterCommand>();
+    protected List<ICrafterCommand> subcommands = new ArrayList<ICrafterCommand>();
     
     public CrafterMainCommand()
     {
