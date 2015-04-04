@@ -1,0 +1,7 @@
+machine:
+  java:
+    version: oraclejdk8
+general:
+  build_dir: Crafter
+  artifacts:
+    - "target/Crafter-*.jar"
