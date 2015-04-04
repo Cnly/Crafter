@@ -1,5 +1,7 @@
 package io.github.Cnly.Crafter.Crafter.framework.commands;
 
+import java.util.Arrays;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -10,7 +12,13 @@ public class LabelDispatchCommand extends CrafterMainCommand
     public boolean onCommand(CommandSender sender, Command cmd, String label,
             String[] args)
     {
-        this.execute(sender, new String[]{label});
+        
+        String[] nargs = new String[args.length + 1];
+        nargs[0] = label;
+        for(int i = 0; i < args.length; i++)
+            nargs[i + 1] = args[i];
+        
+        this.execute(sender, nargs);
         return true;
     }
     
@@ -33,7 +41,7 @@ public class LabelDispatchCommand extends CrafterMainCommand
         
         ICrafterCommand c = this.searchForCommand(action);
         if (c != null)
-            c.execute(sender, args);
+            c.execute(sender, Arrays.copyOfRange(args, 1, args.length));
         else
         {
             sender.sendMessage(this.getHelp());

@@ -1,5 +1,7 @@
 package io.github.Cnly.Crafter.CrafterTest.commands;
 
+import java.util.Arrays;
+
 import io.github.Cnly.Crafter.Crafter.framework.commands.AbstractCrafterCommand;
 import io.github.Cnly.Crafter.Crafter.framework.commands.LabelDispatchCommand;
 
@@ -23,6 +25,7 @@ public class LabelDispatchCommandTest extends TestCase
             @Override
             protected void executeCommand(CommandSender sender, String[] args)
             {
+                assertTrue(Arrays.equals(new String[]{"aaa"}, args));
                 labelCmd1Pass = true;
             }
         };
@@ -33,6 +36,7 @@ public class LabelDispatchCommandTest extends TestCase
             @Override
             protected void executeCommand(CommandSender sender, String[] args)
             {
+                assertTrue(Arrays.equals(new String[]{"aaa", "bbb"}, args));
                 helpCmdPass = true;
             }
         };
