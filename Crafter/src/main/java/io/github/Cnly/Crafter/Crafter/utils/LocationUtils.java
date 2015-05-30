@@ -51,4 +51,9 @@ public class LocationUtils
         
     }
     
+    public static Location getBlockLocation(Location l)
+    {
+        return new Location(l.getWorld(), l.getBlockX(), l.getBlockY(), l.getBlockZ());
+    }
+    
 }
