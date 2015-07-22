@@ -7,10 +7,6 @@ An assistant for writing Bukkit Plugins
 
 Open Source License: MIT
 
-`Crafter尚在开发中，API可能经常变更。`
-
-`Crafter is still under development so the API may often change.`
-
 说明和帮助搬家啦！请移步 [Wiki](https://github.com/Cnly/Crafter/wiki) 查看！
 
 Everything has moved to [Wiki](https://github.com/Cnly/Crafter/wiki)!
