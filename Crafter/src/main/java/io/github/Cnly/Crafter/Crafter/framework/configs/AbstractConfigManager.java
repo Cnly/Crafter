@@ -181,6 +181,13 @@ public abstract class AbstractConfigManager implements IConfigManager
         {
             AbstractConfigManager.this.save();
         }
+
+        @Override
+        public synchronized void cancel() throws IllegalStateException
+        {
+            AbstractConfigManager.this.save();
+            super.cancel();
+        }
         
     }
     
