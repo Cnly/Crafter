@@ -117,9 +117,16 @@ public class CrafterLocaleManager implements ILocaleManager
     }
     
     @Override
-    public String getLocalizedString(String key)
+    public String getLocalizedString(String key) throws NullPointerException
     {
-        return stringMappings.get(key);
+        String result = stringMappings.get(key);
+        if(null == result)
+        {
+            throw new NullPointerException(
+                    String.format("The current locale %s doesn't contain the entry %s! You may have to update your locale file!"
+                            , this.locale, key));
+        }
+        return result;
     }
     
     @Override
