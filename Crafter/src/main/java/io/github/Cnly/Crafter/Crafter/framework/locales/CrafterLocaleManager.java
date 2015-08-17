@@ -1,12 +1,8 @@
 package io.github.Cnly.Crafter.Crafter.framework.locales;
 
-import io.github.Cnly.Crafter.Crafter.utils.ResourceUtils;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,13 +10,8 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CrafterLocaleManager implements ILocaleManager
+public class CrafterLocaleManager extends AbstractLocaleManager
 {
-    
-    private String locale;
-    private File localeDirectory;
-    private Map<String, String> stringMappings;
-    private JavaPlugin jp;
     
     /**
      * The constructor
@@ -38,27 +29,13 @@ public class CrafterLocaleManager implements ILocaleManager
     public CrafterLocaleManager(String locale, File localeDirectory,
             boolean copyDefault, JavaPlugin jp)
     {
-        
-        this.locale = locale;
-        this.jp = jp;
-        this.localeDirectory = localeDirectory;
-        this.stringMappings = new HashMap<String, String>();
-        
-        if (copyDefault
-                && !new File(localeDirectory, this.locale + ".yml").exists())
-            this.copyDefaultLocaleFile();
-        
-        loadLocaleFile();
-        
+        super(locale, localeDirectory, copyDefault, jp, ".yml");
     }
     
     /**
      * Loads the locale file
-     * 
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws InvalidConfigurationException
      */
+    @Override
     public void loadLocaleFile()
     {
         
@@ -102,57 +79,6 @@ public class CrafterLocaleManager implements ILocaleManager
             
         }
         
-    }
-    
-    @Override
-    public String getLocale()
-    {
-        return this.locale;
-    }
-    
-    @Override
-    public void setLocale(String locale)
-    {
-        this.locale = locale;
-        this.loadLocaleFile();
-    }
-    
-    @Override
-    public String getLocalizedString(String key) throws NullPointerException
-    {
-        String result = stringMappings.get(key);
-        if(null == result)
-        {
-            throw new NullPointerException(
-                    String.format("The current locale %s doesn't contain the entry %s! You may have to update your locale file!"
-                            , this.locale, key));
-        }
-        return result;
-    }
-    
-    @Override
-    public void copyDefaultLocaleFile()
-    {
-        this.copyDefaultLocaleFile("/locales/" + this.locale + ".yml");
-    }
-    
-    @Override
-    public void copyDefaultLocaleFile(String resourceLocation)
-    {
-        
-        if (null == this.jp)
-            throw new NullPointerException("JavaPlugin is null!");
-        
-        try
-        {
-            ResourceUtils.copyFromJar(this.jp, resourceLocation, new File(
-                    localeDirectory, this.locale + ".yml"));
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(
-                    "IOException occurred while copying default locale file", e);
-        }
     }
     
 }
