@@ -74,7 +74,8 @@ public class CrafterLocaleManager implements ILocaleManager
         }
         catch (FileNotFoundException e)
         {
-            e.printStackTrace();
+            throw new RuntimeException("Locale file: " + this.locale
+                    + ".yml not found!", e);
         }
         catch (IOException e)
         {
