@@ -70,7 +70,7 @@ public class CompatUtils
     {
         for(Player p : CompatUtils.getOnlinePlayers())
         {
-            if(p.getUniqueId() == uuid) return p;
+            if(p.getUniqueId().equals(uuid)) return p;
         }
         return null;
     }
