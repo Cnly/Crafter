@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -63,6 +64,15 @@ public class CompatUtils
                     "Unknown getOnlinePlayers() return type!");
         }
         
+    }
+    
+    public static Player getPlayer(UUID uuid)
+    {
+        for(Player p : CompatUtils.getOnlinePlayers())
+        {
+            if(p.getUniqueId() == uuid) return p;
+        }
+        return null;
     }
     
 }
