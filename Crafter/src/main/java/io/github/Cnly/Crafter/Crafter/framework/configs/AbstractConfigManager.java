@@ -4,7 +4,10 @@ import io.github.Cnly.Crafter.Crafter.utils.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -15,6 +18,11 @@ public abstract class AbstractConfigManager implements IConfigManager
     protected AutoSaveTask autoSaveTask = null;
     protected JavaPlugin jp;
     protected String resourceLocation = null;
+    
+    private boolean asynchronousAutoSave;
+    private BlockingQueue<Runnable> asynchronousSavingQueue;
+    private BukkitRunnable asynchronousSavingConsumerTask;
+    private Runnable endOfQueueFlagRunnable = new Runnable(){@Override public void run(){}};
     
     /**
      * The constructor. This constructor will set a {@code resourceLocation} for
@@ -96,7 +104,7 @@ public abstract class AbstractConfigManager implements IConfigManager
     {
         return this.jp;
     }
-    
+
     /**
      * Calls {@link AbstractConfigManager#copyDefaultConfig(String)} with the
      * following parameter:<br/>
@@ -141,6 +149,19 @@ public abstract class AbstractConfigManager implements IConfigManager
     }
     
     @Override
+    public boolean isAsynchronousAutoSave()
+    {
+        return asynchronousAutoSave;
+    }
+
+    @Override
+    public AbstractConfigManager setAsynchronousAutoSave(boolean asynchronousAutoSave)
+    {
+        this.asynchronousAutoSave = asynchronousAutoSave;
+        return this;
+    }
+
+    @Override
     public boolean isAutoSaveSet()
     {
         return this.autoSaveTask != null;
@@ -173,19 +194,97 @@ public abstract class AbstractConfigManager implements IConfigManager
         
     }
     
+    @Override
+    public void asynchronousSave()
+    {
+        
+        Runnable r = this.getAsynchronousSaveRunnable();
+        
+        if(null == asynchronousSavingQueue)
+        {
+            asynchronousSavingQueue = new LinkedBlockingQueue<>();
+        }
+        
+        if(null == asynchronousSavingConsumerTask)
+        {
+            asynchronousSavingConsumerTask = new AsynchronousSavingConsumerTask();
+            asynchronousSavingConsumerTask.runTaskAsynchronously(jp);
+        }
+        
+        asynchronousSavingQueue.offer(r);
+        
+    }
+    
+    protected Runnable getAsynchronousSaveRunnable()
+    {
+        throw new NotImplementedException("This config manager does not support asynchronous saving!");
+    }
+    
+    public void shutdownAsynchronousSavingConsumer()
+    {
+        if(null == asynchronousSavingConsumerTask) return;
+        asynchronousSavingConsumerTask.cancel();
+        asynchronousSavingConsumerTask = null;
+    }
+    
+    private class AsynchronousSavingConsumerTask extends BukkitRunnable
+    {
+
+        @Override
+        public void run()
+        {
+            Runnable r = null;
+            try
+            {
+                while((r = asynchronousSavingQueue.take()) != endOfQueueFlagRunnable)
+                {
+                    r.run();
+                }
+            }
+            catch(InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public synchronized void cancel() throws IllegalStateException
+        {
+            asynchronousSavingQueue.offer(endOfQueueFlagRunnable);
+            asynchronousSavingConsumerTask = null;
+            super.cancel();
+        }
+        
+    }
+    
     private class AutoSaveTask extends BukkitRunnable
     {
         
         @Override
         public void run()
         {
-            AbstractConfigManager.this.save();
+            doSave();
+        }
+        
+        private void doSave()
+        {
+            if(asynchronousAutoSave)
+            {
+                AbstractConfigManager.this.asynchronousSave();
+            }
+            else
+            {
+                AbstractConfigManager.this.save();
+            }
         }
 
         @Override
         public synchronized void cancel() throws IllegalStateException
         {
-            AbstractConfigManager.this.save();
+            if(!asynchronousAutoSave)
+            {
+                AbstractConfigManager.this.save();
+            }
             super.cancel();
         }
         

@@ -35,4 +35,10 @@ public interface IConfigManager
      */
     public void setAutoSaveInterval(int seconds);
     
+    public boolean isAsynchronousAutoSave();
+    
+    public IConfigManager setAsynchronousAutoSave(boolean asynchronousAutoSave);
+    
+    public void asynchronousSave();
+    
 }

@@ -2,10 +2,13 @@ package io.github.Cnly.Crafter.Crafter.framework.configs;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -223,9 +226,95 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         return this;
     }
     
+    @Override
+    protected Runnable getAsynchronousSaveRunnable()
+    {
+        return new SimpleAsyncSaveRunnable();
+    }
+
     public YamlConfiguration getYamlConfig()
     {
         return this.yml;
+    }
+    
+    protected class SimpleAsyncSaveRunnable implements Runnable
+    {
+        
+        protected Map<String, Object> snapshotMap;
+        
+        public SimpleAsyncSaveRunnable()
+        {
+            
+            snapshotMap = yml.getValues(true);
+            
+            for(Entry<String, Object> e : snapshotMap.entrySet())
+            {
+                
+                Object o = e.getValue();
+                
+                if(o instanceof Cloneable)
+                {
+                    
+                    Object clonedObject;
+                    try
+                    {
+                        Method cloneMethod = o.getClass().getMethod("clone", (Class<?>[])null);
+                        clonedObject = cloneMethod.invoke(o, (Object[])null);
+                    }
+                    catch(NoSuchMethodException e1)
+                    {
+                        continue;
+                    }
+                    catch(SecurityException e1)
+                    {
+                        continue;
+                    }
+                    catch(IllegalAccessException e1)
+                    {
+                        continue;
+                    }
+                    catch(IllegalArgumentException e1)
+                    {
+                        continue;
+                    }
+                    catch(InvocationTargetException e1)
+                    {
+                        continue;
+                    }
+                    
+                    e.setValue(clonedObject);
+                    
+                }
+                
+            }
+            
+        }
+
+        @Override
+        public void run()
+        {
+            
+            YamlConfiguration yml = new YamlConfiguration();
+            
+            for(Entry<String, Object> e : snapshotMap.entrySet())
+            {
+                Object o = e.getValue();
+                if(o instanceof ConfigurationSection) continue;
+                yml.set(e.getKey(), e.getValue());
+            }
+            
+            try
+            {
+                yml.save(file);
+            }
+            catch(IOException e1)
+            {
+                throw new RuntimeException(
+                        "Error occurred while saving config file", e1);
+            }
+            
+        }
+        
     }
     
 }
