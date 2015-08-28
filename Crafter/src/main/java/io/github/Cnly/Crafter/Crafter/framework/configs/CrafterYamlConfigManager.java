@@ -115,7 +115,6 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         if (null == section)
         {
             section = this.yml.createSection(path);
-            this.save();
         }
         
         return section;
