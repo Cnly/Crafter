@@ -199,12 +199,10 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         @SuppressWarnings("unchecked")
         List<E> l = (List<E>)this.yml.getList(path);
         
-        if (null == l || l.isEmpty())
+        if (null == l)
             l = new ArrayList<E>();
         
         l.add(obj);
-        
-        this.yml.set(path, l);
         
         return this;
     }
@@ -215,12 +213,10 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         @SuppressWarnings("unchecked")
         List<E> l = (List<E>)this.yml.getList(path);
         
-        if (null == l || l.isEmpty())
+        if (null == l)
             return this;
         
         l.remove(obj);
-        
-        this.yml.set(path, l);
         
         return this;
     }
