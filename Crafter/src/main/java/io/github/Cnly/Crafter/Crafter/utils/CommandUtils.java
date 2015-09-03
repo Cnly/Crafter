@@ -30,11 +30,7 @@ public class CommandUtils
         {
             constructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
         }
-        catch(NoSuchMethodException e)
-        {
-            throw new RuntimeException("Error occurred while getting constructor from PluginCommand", e);
-        }
-        catch(SecurityException e)
+        catch(NoSuchMethodException | SecurityException e)
         {
             throw new RuntimeException("Error occurred while getting constructor from PluginCommand", e);
         }
@@ -47,19 +43,7 @@ public class CommandUtils
         {
             pc = constructor.newInstance(name, plugin);
         }
-        catch(InstantiationException e)
-        {
-            throw new RuntimeException("Error occurred while creating new instance of PluginCommand", e);
-        }
-        catch(IllegalAccessException e)
-        {
-            throw new RuntimeException("Error occurred while creating new instance of PluginCommand", e);
-        }
-        catch(IllegalArgumentException e)
-        {
-            throw new RuntimeException("Error occurred while creating new instance of PluginCommand", e);
-        }
-        catch(InvocationTargetException e)
+        catch(InstantiationException | IllegalAccessException | InvocationTargetException e)
         {
             throw new RuntimeException("Error occurred while creating new instance of PluginCommand", e);
         }
@@ -87,11 +71,7 @@ public class CommandUtils
         {
             commandMapField = SimplePluginManager.class.getDeclaredField("commandMap");
         }
-        catch(NoSuchFieldException e)
-        {
-            throw new RuntimeException("Error occurred while getting field commandMap from SimplePluginManager", e);
-        }
-        catch(SecurityException e)
+        catch(NoSuchFieldException | SecurityException e)
         {
             throw new RuntimeException("Error occurred while getting field commandMap from SimplePluginManager", e);
         }
@@ -103,11 +83,7 @@ public class CommandUtils
         {
             return (CommandMap)commandMapField.get(pm);
         }
-        catch(IllegalArgumentException e)
-        {
-            throw new RuntimeException("Error occurred while getting command map from SimplePluginManager", e);
-        }
-        catch(IllegalAccessException e)
+        catch(IllegalArgumentException | IllegalAccessException e)
         {
             throw new RuntimeException("Error occurred while getting command map from SimplePluginManager", e);
         }
