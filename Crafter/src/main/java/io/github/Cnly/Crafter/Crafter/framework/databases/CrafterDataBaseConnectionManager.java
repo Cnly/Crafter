@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 public class CrafterDataBaseConnectionManager implements IDatabaseConnectionManager
 {
     
@@ -182,6 +181,17 @@ public class CrafterDataBaseConnectionManager implements IDatabaseConnectionMana
     public CrafterDataBaseConnectionManager setPassword(String password)
     {
         this.password = password;
+        return this;
+    }
+    
+    public String getDatabase()
+    {
+        return database;
+    }
+
+    public CrafterDataBaseConnectionManager setDatabase(String database)
+    {
+        this.database = database;
         return this;
     }
     
