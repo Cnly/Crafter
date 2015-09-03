@@ -1,5 +1,7 @@
 package io.github.Cnly.Crafter.CrafterTest.configs.autoreloading;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -9,14 +11,17 @@ import io.github.Cnly.Crafter.Crafter.framework.configs.autoreloading.CrafterCon
 import io.github.Cnly.Crafter.Crafter.utils.IOUtils;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class ReloadTest extends TestCase
+public class ReloadTest
 {
     
-    static
+    @ReloadableConfig
+    private CrafterYamlConfigManager scm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "reloadTestConfig.yml"), false, null);
+    
+    @BeforeClass
+    public static void setup()
     {
         try
         {
@@ -27,9 +32,6 @@ public class ReloadTest extends TestCase
             e.printStackTrace();
         }
     }
-    
-    @ReloadableConfig
-    private CrafterYamlConfigManager scm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "reloadTestConfig.yml"), false, null);
     
     @Test
     public void test() throws IOException

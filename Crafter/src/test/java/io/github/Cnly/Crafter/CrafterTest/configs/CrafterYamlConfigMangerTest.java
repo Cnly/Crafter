@@ -1,5 +1,7 @@
 package io.github.Cnly.Crafter.CrafterTest.configs;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,18 +14,15 @@ import io.github.Cnly.Crafter.Crafter.framework.configs.CrafterYamlConfigManager
 import io.github.Cnly.Crafter.Crafter.utils.IOUtils;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class CrafterYamlConfigMangerTest extends TestCase
+public class CrafterYamlConfigMangerTest
 {
     
     @Test
     public void testBasic() throws IOException
     {
-        
-        prepareConfigFile();
         
         CrafterYamlConfigManager sycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), false, null);
         
@@ -52,7 +51,8 @@ public class CrafterYamlConfigMangerTest extends TestCase
         
     }
     
-    private void prepareConfigFile() throws IOException
+    @Before
+    public void prepareConfigFile() throws IOException
     {
         IOUtils.copyFileFromStream(this.getClass().getResourceAsStream("/testConfig.yml"), new File(Definitions.testConfigDir.toFile(), "testConfig.yml"));
     }
@@ -60,8 +60,6 @@ public class CrafterYamlConfigMangerTest extends TestCase
     @Test
     public void testAddToList() throws IOException
     {
-        
-        prepareConfigFile();
         
         CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), false, null);
         
@@ -80,8 +78,6 @@ public class CrafterYamlConfigMangerTest extends TestCase
     public void testRemoveFromList() throws IOException
     {
         
-        prepareConfigFile();
-        
         CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), false, null);
         
         List<String> expected = new ArrayList<>();
@@ -98,8 +94,6 @@ public class CrafterYamlConfigMangerTest extends TestCase
     @Test
     public void testGetConfigurationSection() throws IOException
     {
-        
-        prepareConfigFile();
         
         CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), false, null);
         

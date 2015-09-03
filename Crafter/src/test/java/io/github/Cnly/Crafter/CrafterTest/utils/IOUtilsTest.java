@@ -1,12 +1,11 @@
 package io.github.Cnly.Crafter.CrafterTest.utils;
 
+import static org.junit.Assert.*;
 import io.github.Cnly.Crafter.Crafter.utils.IOUtils;
 
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class IOUtilsTest extends TestCase
+public class IOUtilsTest
 {
     
     @Test

@@ -1,13 +1,14 @@
 package io.github.Cnly.Crafter.CrafterTest.configs.autoreloading;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import junit.framework.TestCase;
-
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import io.github.Cnly.Crafter.Crafter.framework.configs.IConfigManager;
@@ -17,10 +18,11 @@ import io.github.Cnly.Crafter.Crafter.framework.configs.autoreloading.CrafterCon
 import io.github.Cnly.Crafter.Crafter.utils.IOUtils;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
-public class ReloadOrderTest extends TestCase
+public class ReloadOrderTest
 {
     
-    static
+    @BeforeClass
+    public static void setup()
     {
         try
         {

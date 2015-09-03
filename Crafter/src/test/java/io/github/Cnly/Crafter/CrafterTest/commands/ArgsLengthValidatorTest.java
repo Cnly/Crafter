@@ -1,13 +1,12 @@
 package io.github.Cnly.Crafter.CrafterTest.commands;
 
+import static org.junit.Assert.*;
 import io.github.Cnly.Crafter.Crafter.framework.commands.ArgumentLengthValidator;
 import io.github.Cnly.Crafter.Crafter.framework.commands.ArgumentLengthValidator.ValidateMode;
 
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class ArgsLengthValidatorTest extends TestCase
+public class ArgsLengthValidatorTest
 {
     
     @Test

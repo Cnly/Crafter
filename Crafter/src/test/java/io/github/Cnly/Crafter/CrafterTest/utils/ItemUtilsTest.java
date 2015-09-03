@@ -1,14 +1,13 @@
 package io.github.Cnly.Crafter.CrafterTest.utils;
 
+import static org.junit.Assert.*;
 import io.github.Cnly.Crafter.Crafter.utils.ItemUtils;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class ItemUtilsTest extends TestCase
+public class ItemUtilsTest
 {
     
     @SuppressWarnings("deprecation")

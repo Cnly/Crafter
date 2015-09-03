@@ -1,5 +1,7 @@
 package io.github.Cnly.Crafter.CrafterTest.locales;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,9 +13,7 @@ import io.github.Cnly.Crafter.CrafterTest.Definitions;
 import org.bukkit.ChatColor;
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class CrafterLocaleManagerTest extends TestCase
+public class CrafterLocaleManagerTest
 {
     
     @Test

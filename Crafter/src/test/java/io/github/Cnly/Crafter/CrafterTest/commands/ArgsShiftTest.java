@@ -1,5 +1,7 @@
 package io.github.Cnly.Crafter.CrafterTest.commands;
 
+import static org.junit.Assert.*;
+
 import io.github.Cnly.Crafter.Crafter.framework.commands.AbstractCrafterCommand;
 import io.github.Cnly.Crafter.Crafter.framework.commands.CrafterMainCommand;
 import io.github.Cnly.Crafter.Crafter.framework.commands.ICrafterCommand;
@@ -7,9 +9,7 @@ import io.github.Cnly.Crafter.Crafter.framework.commands.ICrafterCommand;
 import org.bukkit.command.CommandSender;
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class ArgsShiftTest extends TestCase
+public class ArgsShiftTest
 {
     
     @Test

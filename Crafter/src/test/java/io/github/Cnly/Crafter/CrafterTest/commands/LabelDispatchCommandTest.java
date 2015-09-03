@@ -1,5 +1,7 @@
 package io.github.Cnly.Crafter.CrafterTest.commands;
 
+import static org.junit.Assert.*;
+
 import java.util.Arrays;
 
 import io.github.Cnly.Crafter.Crafter.framework.commands.AbstractCrafterCommand;
@@ -8,9 +10,7 @@ import io.github.Cnly.Crafter.Crafter.framework.commands.LabelDispatchCommand;
 import org.bukkit.command.CommandSender;
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class LabelDispatchCommandTest extends TestCase
+public class LabelDispatchCommandTest
 {
     
     private boolean labelCmd1Pass = false;
