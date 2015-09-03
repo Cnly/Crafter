@@ -117,12 +117,12 @@ public class CrafterConnectionFactory implements IConnectionFactory
         this.url = null;
         return this;
     }
-
+    
     public String getDatabase()
     {
         return database;
     }
-
+    
     public CrafterConnectionFactory setDatabase(String database)
     {
         this.database = database;

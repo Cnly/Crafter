@@ -29,8 +29,7 @@ public class ReloadTest extends TestCase
     }
     
     @ReloadableConfig
-    private CrafterYamlConfigManager scm = new CrafterYamlConfigManager(new File(
-            Definitions.testConfigDir.toFile(), "reloadTestConfig.yml"), false, null);
+    private CrafterYamlConfigManager scm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "reloadTestConfig.yml"), false, null);
     
     @Test
     public void test() throws IOException

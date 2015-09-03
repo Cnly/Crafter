@@ -19,11 +19,10 @@ public class ItemUtils
     public static ItemStack getItemByIdString(String idString)
     {
         
-        if (idString.contains(":"))
+        if(idString.contains(":"))
         {
             String[] split = idString.split(":");
-            return new ItemStack(Integer.parseInt(split[0]), 1,
-                    Short.parseShort(split[1]));
+            return new ItemStack(Integer.parseInt(split[0]), 1, Short.parseShort(split[1]));
         }
         else
         {
@@ -39,7 +38,7 @@ public class ItemUtils
         String result = String.valueOf(is.getTypeId());
         short durability = is.getDurability();
         
-        if (0 != durability)
+        if(0 != durability)
             result += ":" + String.valueOf(durability);
         
         return result;
@@ -48,12 +47,12 @@ public class ItemUtils
     public static List<String> getLores(ItemStack item)
     {
         
-        if (!item.hasItemMeta())
+        if(!item.hasItemMeta())
             return Collections.emptyList();
         
         ItemMeta meta = item.getItemMeta();
         
-        if (!meta.hasLore())
+        if(!meta.hasLore())
             return Collections.emptyList();
         
         return meta.getLore();
@@ -63,8 +62,7 @@ public class ItemUtils
     {
         
         ItemMeta meta = item.getItemMeta();
-        List<String> lores = meta.hasLore() ? meta.getLore()
-                : new ArrayList<String>();
+        List<String> lores = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
         lores.add(lore);
         meta.setLore(lores);
         item.setItemMeta(meta);
@@ -87,7 +85,7 @@ public class ItemUtils
         
         ItemMeta meta = item.getItemMeta();
         
-        if (!meta.hasDisplayName())
+        if(!meta.hasDisplayName())
             return null;
         
         return meta.getDisplayName();

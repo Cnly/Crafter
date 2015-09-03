@@ -9,8 +9,7 @@ public class LabelDispatchCommand extends CrafterMainCommand
 {
     
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label,
-            String[] args)
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
     {
         
         String[] nargs = new String[args.length + 1];
@@ -40,12 +39,12 @@ public class LabelDispatchCommand extends CrafterMainCommand
         String action = args[0];
         
         ICrafterCommand c = this.searchForCommand(action);
-        if (c != null)
+        if(c != null)
             c.execute(sender, Arrays.copyOfRange(args, 1, args.length));
         else
         {
             sender.sendMessage(this.getHelp());
-            for (ICrafterCommand cc : subcommands.values())
+            for(ICrafterCommand cc : subcommands.values())
                 sender.sendMessage(cc.getHelp());
         }
         

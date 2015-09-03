@@ -20,8 +20,7 @@ public class ArgumentLengthValidator implements IArgumentValidator
         case EXACT:
             return args.length == this.exactLength;
         case RANGE:
-            return args.length >= this.minLength
-                    && args.length <= this.maxLength;
+            return args.length >= this.minLength && args.length <= this.maxLength;
         case LIST:
             for(int allowed : this.allowedLengths)
                 if(allowed == args.length)
@@ -99,9 +98,7 @@ public class ArgumentLengthValidator implements IArgumentValidator
     protected boolean checkMode(ValidateMode expectedMode)
     {
         if(expectedMode != this.mode)
-            throw new IllegalStateException(String.format(
-                    "ValidateMode %s is required to act on this field!",
-                    expectedMode));
+            throw new IllegalStateException(String.format("ValidateMode %s is required to act on this field!", expectedMode));
         
         return true;
     }

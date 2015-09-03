@@ -33,8 +33,7 @@ public abstract class AbstractLocaleManager implements ILocaleManager
      * @param fileExtension
      *            e.g. ".yml"
      */
-    public AbstractLocaleManager(String locale, File localeDirectory,
-            boolean copyDefault, JavaPlugin jp, String fileExtension)
+    public AbstractLocaleManager(String locale, File localeDirectory, boolean copyDefault, JavaPlugin jp, String fileExtension)
     {
         
         this.locale = locale;
@@ -43,8 +42,7 @@ public abstract class AbstractLocaleManager implements ILocaleManager
         this.stringMappings = new HashMap<String, String>();
         this.fileExtension = fileExtension;
         
-        if (copyDefault
-                && !new File(localeDirectory, this.locale + this.fileExtension).exists())
+        if(copyDefault && !new File(localeDirectory, this.locale + this.fileExtension).exists())
             this.copyDefaultLocaleFile();
         
         loadLocaleFile();
@@ -78,9 +76,7 @@ public abstract class AbstractLocaleManager implements ILocaleManager
         String result = stringMappings.get(key);
         if(null == result)
         {
-            throw new NullPointerException(
-                    String.format("The current locale %s doesn't contain the entry %s! You may have to update your locale file!"
-                            , this.locale, key));
+            throw new NullPointerException(String.format("The current locale %s doesn't contain the entry %s! You may have to update your locale file!", this.locale, key));
         }
         return result;
     }
@@ -95,18 +91,16 @@ public abstract class AbstractLocaleManager implements ILocaleManager
     public void copyDefaultLocaleFile(String resourceLocation)
     {
         
-        if (null == this.jp)
+        if(null == this.jp)
             throw new NullPointerException("JavaPlugin is null!");
         
         try
         {
-            ResourceUtils.copyFromJar(this.jp, resourceLocation, new File(
-                    localeDirectory, this.locale + this.fileExtension));
+            ResourceUtils.copyFromJar(this.jp, resourceLocation, new File(localeDirectory, this.locale + this.fileExtension));
         }
-        catch (IOException e)
+        catch(IOException e)
         {
-            throw new RuntimeException(
-                    "IOException occurred while copying default locale file", e);
+            throw new RuntimeException("IOException occurred while copying default locale file", e);
         }
     }
     

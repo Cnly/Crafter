@@ -15,12 +15,13 @@ public class CrafterConnectionPool implements IConnectionPool
     {
         this.factory = factory;
     }
-
+    
     @Override
     public Connection getConnection()
     {
         
-        if(closed) return null;
+        if(closed)
+            return null;
         
         Connection c = pool.poll();
         if(null == c)
@@ -40,7 +41,7 @@ public class CrafterConnectionPool implements IConnectionPool
         }
         
     }
-
+    
     @Override
     public void releaseConnection(Connection c)
     {
@@ -81,7 +82,8 @@ public class CrafterConnectionPool implements IConnectionPool
     /**
      * Check the connection status.
      * 
-     * @param connection the connection to check
+     * @param connection
+     *            the connection to check
      * @return if the connection is ready
      */
     protected boolean checkConnection(Connection connection)
@@ -102,5 +104,5 @@ public class CrafterConnectionPool implements IConnectionPool
         
         return true;
     }
-
+    
 }

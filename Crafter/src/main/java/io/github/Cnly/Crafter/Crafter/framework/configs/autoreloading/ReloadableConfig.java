@@ -17,5 +17,6 @@ import java.lang.annotation.Target;
 public @interface ReloadableConfig
 {
     String group() default "";
+    
     int priority() default 0;
 }

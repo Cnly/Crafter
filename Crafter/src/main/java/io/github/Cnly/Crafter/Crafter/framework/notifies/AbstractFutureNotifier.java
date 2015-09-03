@@ -33,27 +33,23 @@ public abstract class AbstractFutureNotifier implements IFutureNotifier
     {
         
         StringBuilder sb = new StringBuilder(48);
-        if (this.redPrefix)
-            sb.append(ChatColor.RED.toString()).append('[')
-                    .append(jp.getDescription().getName()).append(' ')
-                    .append(this.logLevel.toString()).append("] ")
-                    .append(this.message);
+        if(this.redPrefix)
+            sb.append(ChatColor.RED.toString()).append('[').append(jp.getDescription().getName()).append(' ').append(this.logLevel.toString()).append("] ").append(this.message);
         
         String msgToSend = sb.toString();
         
-        if (notifyConsole)
+        if(notifyConsole)
         {
             Bukkit.getConsoleSender().sendMessage(msgToSend);
         }
         
-        if (notifyPlayers)
+        if(notifyPlayers)
         {
             
-            for (Player p : CompatUtils.getOnlinePlayers())
+            for(Player p : CompatUtils.getOnlinePlayers())
             {
                 
-                if (null == this.permission
-                        || !p.hasPermission(this.permission))
+                if(null == this.permission || !p.hasPermission(this.permission))
                     continue;
                 
                 p.sendMessage(msgToSend);

@@ -22,8 +22,7 @@ public class BoxRegionSetter implements Listener
     private Constructor<? extends IRegion> regionConstructor;
     private IBoxRegionSettingListener listener;
     
-    public BoxRegionSetter(JavaPlugin jp, Class<? extends IRegion> regionClass,
-            IBoxRegionSettingListener listener)
+    public BoxRegionSetter(JavaPlugin jp, Class<? extends IRegion> regionClass, IBoxRegionSettingListener listener)
     {
         super();
         Bukkit.getPluginManager().registerEvents(this, jp);
@@ -31,13 +30,11 @@ public class BoxRegionSetter implements Listener
         
         try
         {
-            this.regionConstructor = regionClass.getConstructor(Location.class,
-                    Location.class);
+            this.regionConstructor = regionClass.getConstructor(Location.class, Location.class);
         }
-        catch (NoSuchMethodException | SecurityException e)
+        catch(NoSuchMethodException | SecurityException e)
         {
-            throw new RuntimeException("Unable to get an IRegion constructor!",
-                    e);
+            throw new RuntimeException("Unable to get an IRegion constructor!", e);
         }
         
     }
@@ -57,16 +54,16 @@ public class BoxRegionSetter implements Listener
     public void onClick(PlayerInteractEvent e)
     {
         
-        if (this.ignoring)
+        if(this.ignoring)
             return;
         
         Player p = e.getPlayer();
         UUID pid = p.getUniqueId();
         
-        if (!this.locationMap.containsKey(pid))
+        if(!this.locationMap.containsKey(pid))
             return;
         
-        switch (e.getAction())
+        switch(e.getAction())
         {
         
         case LEFT_CLICK_AIR:
@@ -106,7 +103,7 @@ public class BoxRegionSetter implements Listener
     {
         
         UUID pid = p.getUniqueId();
-        if (null == this.locationMap.get(pid))
+        if(null == this.locationMap.get(pid))
         {
             this.locationMap.put(pid, new Location[2]);
             this.listener.onEnterSettingMode(p);
@@ -124,14 +121,14 @@ public class BoxRegionSetter implements Listener
      * 
      * @param p
      *            player
-     * @return true if and only if the player is now exiting the setting
-     *         mode(it is in the setting mode before)
+     * @return true if and only if the player is now exiting the setting mode(it
+     *         is in the setting mode before)
      */
     public boolean exitSettingMode(Player p)
     {
         
         UUID pid = p.getUniqueId();
-        if (null == this.locationMap.get(pid))
+        if(null == this.locationMap.get(pid))
         {
             return false;
         }
@@ -155,15 +152,14 @@ public class BoxRegionSetter implements Listener
         
         this.listener.onLocationSet(p, index, l);
         
-        if (null == loc1 || null == loc2)
+        if(null == loc1 || null == loc2)
             return;
         IRegion r = null;
         try
         {
             r = this.regionConstructor.newInstance(loc1, loc2);
         }
-        catch (InstantiationException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e)
+        catch(InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
         {
             throw new RuntimeException("Unable to create IRegion instance!", e);
         }

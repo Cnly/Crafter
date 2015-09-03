@@ -68,7 +68,6 @@ public class CommandUtils
             constructor.setAccessible(accessible);
         }
         
-        
         return pc;
     }
     
@@ -135,10 +134,14 @@ public class CommandUtils
         PluginCommand pc = newPluginCommand(commandName, plugin);
         
         pc.setExecutor(executor);
-        if(usage != null) pc.setUsage(usage);
-        if(description != null) pc.setDescription(description);
-        if(permission != null) pc.setPermission(permission);
-        if(aliases != null) pc.setAliases(Arrays.asList(aliases));
+        if(usage != null)
+            pc.setUsage(usage);
+        if(description != null)
+            pc.setDescription(description);
+        if(permission != null)
+            pc.setPermission(permission);
+        if(aliases != null)
+            pc.setAliases(Arrays.asList(aliases));
         
         return register(plugin, pc);
     }

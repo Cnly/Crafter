@@ -22,14 +22,12 @@ public class CrafterLocaleManagerTest extends TestCase
         
         IOUtils.copyFileFromStream(this.getClass().getResourceAsStream("/locales/en_UK.yml"), new File(Definitions.testLocaleDir.toFile(), "en_UK.yml"));
         
-        CrafterLocaleManager slm = new CrafterLocaleManager("en_UK",
-                Definitions.testLocaleDir.toFile(), false, null);
+        CrafterLocaleManager slm = new CrafterLocaleManager("en_UK", Definitions.testLocaleDir.toFile(), false, null);
         
         assertTrue(Files.exists(Definitions.testLocaleDir));
         
         assertEquals("AAA", slm.getLocalizedString("stringA"));
-        assertEquals(ChatColor.GREEN.toString() + ChatColor.RED + "CCC",
-                slm.getLocalizedString("stringColour"));
+        assertEquals(ChatColor.GREEN.toString() + ChatColor.RED + "CCC", slm.getLocalizedString("stringColour"));
         
         assertEquals("888", slm.getLocalizedString("here.msg1"));
         assertEquals("hey!", slm.getLocalizedString("here.greeting.hey"));

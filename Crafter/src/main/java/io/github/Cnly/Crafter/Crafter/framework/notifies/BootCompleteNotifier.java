@@ -9,8 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-public class BootCompleteNotifier extends AbstractFutureNotifier implements
-        Listener
+public class BootCompleteNotifier extends AbstractFutureNotifier implements Listener
 {
     
     private long lastPluginEnableTime;
@@ -61,8 +60,7 @@ public class BootCompleteNotifier extends AbstractFutureNotifier implements
         public void run()
         {
             
-            if (!(System.currentTimeMillis()
-                    - BootCompleteNotifier.this.lastPluginEnableTime >= delay))
+            if(!(System.currentTimeMillis() - BootCompleteNotifier.this.lastPluginEnableTime >= delay))
                 return;
             
             BootCompleteNotifier.this.doNotify();
@@ -81,7 +79,7 @@ public class BootCompleteNotifier extends AbstractFutureNotifier implements
     @Override
     public void cancel()
     {
-        if (null != this.checkTask)
+        if(null != this.checkTask)
         {
             this.checkTask.cancel();
             this.checkTask = null;

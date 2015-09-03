@@ -19,19 +19,18 @@ public class IOUtils
         throw new AssertionError("This is a util class");
     }
     
-    public static void copyFileFromStream(InputStream in, File dest)
-            throws IOException
+    public static void copyFileFromStream(InputStream in, File dest) throws IOException
     {
         
         try
         {
-            if (!dest.exists())
+            if(!dest.exists())
             {
                 dest.getParentFile().mkdirs();
                 dest.createNewFile();
             }
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             throw e;
         }
@@ -44,21 +43,21 @@ public class IOUtils
         {
             out = new FileOutputStream(dest);
         }
-        catch (FileNotFoundException e1)
+        catch(FileNotFoundException e1)
         {
             throw new RuntimeException("Impossible! File not found?!", e1);
         }
         
         try
         {
-            while ((bytesRead = bin.read(buffer)) > 0)
+            while((bytesRead = bin.read(buffer)) > 0)
             {
                 
                 out.write(buffer, 0, bytesRead);
                 
             }
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             throw e;
         }
@@ -69,7 +68,7 @@ public class IOUtils
             {
                 bin.close();
             }
-            catch (IOException e)
+            catch(IOException e)
             {
                 throw new RuntimeException("Cannot close input stream!", e);
             }
@@ -78,7 +77,7 @@ public class IOUtils
             {
                 out.close();
             }
-            catch (IOException e)
+            catch(IOException e)
             {
                 throw new RuntimeException("Cannot close output stream!", e);
             }

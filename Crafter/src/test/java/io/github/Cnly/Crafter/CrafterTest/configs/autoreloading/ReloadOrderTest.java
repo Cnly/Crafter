@@ -33,24 +33,17 @@ public class ReloadOrderTest extends TestCase
     }
     
     @ReloadableConfig(priority = Integer.MAX_VALUE, group = "group1")
-    private CrafterYamlConfigManager config1 = new CrafterYamlConfigManager(
-            new File(Definitions.testConfigDir.toString(), "testConfig.yml"),
-            false, null);
+    private CrafterYamlConfigManager config1 = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toString(), "testConfig.yml"), false, null);
     @ReloadableConfig
-    private IConfigManager config2 = new CrafterYamlConfigManager(new File(
-            Definitions.testConfigDir.toString(), "testConfig2.yml"), false, null);
+    private IConfigManager config2 = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toString(), "testConfig2.yml"), false, null);
     @ReloadableConfig(priority = Integer.MIN_VALUE, group = "group1")
-    private IConfigManager config3 = new CrafterYamlConfigManager(new File(
-            Definitions.testConfigDir.toString(), "testConfig3.yml"), false, null);
+    private IConfigManager config3 = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toString(), "testConfig3.yml"), false, null);
     
     @SuppressWarnings("unused")
-    private CrafterYamlConfigManager neverReloadThis = new CrafterYamlConfigManager(new File(
-            Definitions.testConfigDir.toString(), "testConfig4.yml"), false, null);
+    private CrafterYamlConfigManager neverReloadThis = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toString(), "testConfig4.yml"), false, null);
     
     @Test
-    public void test() throws NoSuchMethodException, SecurityException,
-            IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException
+    public void test() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
     {
         
         CrafterConfigReloader scr = new CrafterConfigReloader("group1");
@@ -60,8 +53,7 @@ public class ReloadOrderTest extends TestCase
         m.setAccessible(true);
         
         @SuppressWarnings("unchecked")
-        ArrayList<IConfigManager> actual = (ArrayList<IConfigManager>)m.invoke(
-                scr, new Object[0]);
+        ArrayList<IConfigManager> actual = (ArrayList<IConfigManager>)m.invoke(scr, new Object[0]);
         
         ArrayList<IConfigManager> expected = new ArrayList<>();
         expected.add(config1);

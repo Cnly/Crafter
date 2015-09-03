@@ -18,11 +18,10 @@ public class Definitions
             Files.createDirectories(testConfigDir);
             Files.createDirectories(testLocaleDir);
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             e.printStackTrace();
         }
     }
-    
     
 }

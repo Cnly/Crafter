@@ -13,12 +13,10 @@ public class IOUtilsTest extends TestCase
     public void test()
     {
         
-        String expected = "testingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtesting" + System.getProperty("line.separator");
+        String expected = "testingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtestingtesting"
+                + System.getProperty("line.separator");
         
-        
-        
-        assertEquals(expected, IOUtils.readStringFromStream(this.getClass()
-                .getResourceAsStream("/iotest.txt"), "utf-8"));
+        assertEquals(expected, IOUtils.readStringFromStream(this.getClass().getResourceAsStream("/iotest.txt"), "utf-8"));
         
     }
     

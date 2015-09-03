@@ -14,8 +14,7 @@ public class ApproximateBoxRegion implements IRegion
     private final int maxZ;
     private final int minZ;
     
-    public ApproximateBoxRegion(String worldName, int maxX, int minX, int maxY,
-            int minY, int maxZ, int minZ)
+    public ApproximateBoxRegion(String worldName, int maxX, int minX, int maxY, int minY, int maxZ, int minZ)
     {
         super();
         this.worldName = worldName;
@@ -30,9 +29,8 @@ public class ApproximateBoxRegion implements IRegion
     public ApproximateBoxRegion(Location loc1, Location loc2)
     {
         
-        if (!loc1.getWorld().equals(loc2.getWorld()))
-            throw new IllegalArgumentException(
-                    "Two locations are in different worlds!");
+        if(!loc1.getWorld().equals(loc2.getWorld()))
+            throw new IllegalArgumentException("Two locations are in different worlds!");
         
         int x1 = loc1.getBlockX();
         int x2 = loc2.getBlockX();
@@ -55,9 +53,7 @@ public class ApproximateBoxRegion implements IRegion
     public String toString()
     {
         
-        return new StringBuilder().append(this.worldName).append(',')
-                .append(this.maxX).append(',').append(this.minX).append(',')
-                .append(this.maxY).append(',').append(this.minY).append(',')
+        return new StringBuilder().append(this.worldName).append(',').append(this.maxX).append(',').append(this.minX).append(',').append(this.maxY).append(',').append(this.minY).append(',')
                 .append(this.maxZ).append(',').append(this.minZ).toString();
     }
     
@@ -74,8 +70,7 @@ public class ApproximateBoxRegion implements IRegion
         int maxZ = Integer.parseInt(split[5]);
         int minZ = Integer.parseInt(split[6]);
         
-        return new ApproximateBoxRegion(worldName, maxX, minX, maxY, minY,
-                maxZ, minZ);
+        return new ApproximateBoxRegion(worldName, maxX, minX, maxY, minY, maxZ, minZ);
     }
     
     @Override
@@ -88,15 +83,14 @@ public class ApproximateBoxRegion implements IRegion
     public boolean isInRegion(Location l)
     {
         
-        if (!l.getWorld().getName().equals(this.worldName))
+        if(!l.getWorld().getName().equals(this.worldName))
             return false;
         
         int x = l.getBlockX();
         int y = l.getBlockY();
         int z = l.getBlockZ();
         
-        if ((x <= maxX && x >= minX) && (y <= maxY && y >= minY)
-                && (z <= maxZ && z >= minZ))
+        if((x <= maxX && x >= minX) && (y <= maxY && y >= minY) && (z <= maxZ && z >= minZ))
             return true;
         else
             return false;
@@ -113,39 +107,38 @@ public class ApproximateBoxRegion implements IRegion
         result = prime * result + minX;
         result = prime * result + minY;
         result = prime * result + minZ;
-        result = prime * result
-                + ((worldName == null) ? 0 : worldName.hashCode());
+        result = prime * result + ((worldName == null) ? 0 : worldName.hashCode());
         return result;
     }
     
     @Override
     public boolean equals(Object obj)
     {
-        if (this == obj)
+        if(this == obj)
             return true;
-        if (obj == null)
+        if(obj == null)
             return false;
-        if (getClass() != obj.getClass())
+        if(getClass() != obj.getClass())
             return false;
         ApproximateBoxRegion other = (ApproximateBoxRegion)obj;
-        if (maxX != other.maxX)
+        if(maxX != other.maxX)
             return false;
-        if (maxY != other.maxY)
+        if(maxY != other.maxY)
             return false;
-        if (maxZ != other.maxZ)
+        if(maxZ != other.maxZ)
             return false;
-        if (minX != other.minX)
+        if(minX != other.minX)
             return false;
-        if (minY != other.minY)
+        if(minY != other.minY)
             return false;
-        if (minZ != other.minZ)
+        if(minZ != other.minZ)
             return false;
-        if (worldName == null)
+        if(worldName == null)
         {
-            if (other.worldName != null)
+            if(other.worldName != null)
                 return false;
         }
-        else if (!worldName.equals(other.worldName))
+        else if(!worldName.equals(other.worldName))
             return false;
         return true;
     }

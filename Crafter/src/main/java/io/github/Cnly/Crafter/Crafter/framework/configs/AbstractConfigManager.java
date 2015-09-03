@@ -22,7 +22,13 @@ public abstract class AbstractConfigManager implements IConfigManager
     private boolean asynchronousAutoSave;
     private BlockingQueue<Runnable> asynchronousSavingQueue;
     private BukkitRunnable asynchronousSavingConsumerTask;
-    private Runnable endOfQueueFlagRunnable = new Runnable(){@Override public void run(){}};
+    private Runnable endOfQueueFlagRunnable = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+        }
+    };
     
     /**
      * The constructor. This constructor will set a {@code resourceLocation} for
@@ -40,8 +46,7 @@ public abstract class AbstractConfigManager implements IConfigManager
      *            registering. If this is null, these functions will throw
      *            exceptions.
      */
-    public AbstractConfigManager(File file, String resourceLocation,
-            boolean copyDefault, JavaPlugin jp)
+    public AbstractConfigManager(File file, String resourceLocation, boolean copyDefault, JavaPlugin jp)
     {
         
         this.file = file;
@@ -104,7 +109,7 @@ public abstract class AbstractConfigManager implements IConfigManager
     {
         return this.jp;
     }
-
+    
     /**
      * Calls {@link AbstractConfigManager#copyDefaultConfig(String)} with the
      * following parameter:<br/>
@@ -117,8 +122,7 @@ public abstract class AbstractConfigManager implements IConfigManager
     @Override
     public AbstractConfigManager copyDefaultConfig()
     {
-        this.copyDefaultConfig(null == this.resourceLocation ? "/"
-                + this.file.getName() : this.resourceLocation);
+        this.copyDefaultConfig(null == this.resourceLocation ? "/" + this.file.getName() : this.resourceLocation);
         return this;
     }
     
@@ -153,14 +157,14 @@ public abstract class AbstractConfigManager implements IConfigManager
     {
         return asynchronousAutoSave;
     }
-
+    
     @Override
     public AbstractConfigManager setAsynchronousAutoSave(boolean asynchronousAutoSave)
     {
         this.asynchronousAutoSave = asynchronousAutoSave;
         return this;
     }
-
+    
     @Override
     public boolean isAutoSaveSet()
     {
@@ -222,14 +226,15 @@ public abstract class AbstractConfigManager implements IConfigManager
     
     public void shutdownAsynchronousSavingConsumer()
     {
-        if(null == asynchronousSavingConsumerTask) return;
+        if(null == asynchronousSavingConsumerTask)
+            return;
         asynchronousSavingConsumerTask.cancel();
         asynchronousSavingConsumerTask = null;
     }
     
     private class AsynchronousSavingConsumerTask extends BukkitRunnable
     {
-
+        
         @Override
         public void run()
         {
@@ -246,7 +251,7 @@ public abstract class AbstractConfigManager implements IConfigManager
                 e.printStackTrace();
             }
         }
-
+        
         @Override
         public synchronized void cancel() throws IllegalStateException
         {
@@ -277,7 +282,7 @@ public abstract class AbstractConfigManager implements IConfigManager
                 AbstractConfigManager.this.save();
             }
         }
-
+        
         @Override
         public synchronized void cancel() throws IllegalStateException
         {

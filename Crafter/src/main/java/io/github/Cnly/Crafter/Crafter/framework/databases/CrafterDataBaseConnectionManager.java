@@ -27,28 +27,25 @@ public class CrafterDataBaseConnectionManager implements IDatabaseConnectionMana
     protected boolean connect()
     {
         
-        if (this.isConnected)
+        if(this.isConnected)
             return false;
         
-        StringBuilder sb = new StringBuilder("jdbc:").append(this.dbType)
-                .append("://").append(this.host).append(':').append(this.port);
+        StringBuilder sb = new StringBuilder("jdbc:").append(this.dbType).append("://").append(this.host).append(':').append(this.port);
         if(null != this.database)
             sb.append('/').append(this.database);
         String url = sb.toString();
         
-        if (null != this.password && null != this.username)
+        if(null != this.password && null != this.username)
         {
             
             try
             {
-                this.connection = DriverManager.getConnection(url,
-                        this.username, this.password);
+                this.connection = DriverManager.getConnection(url, this.username, this.password);
                 return this.isConnected = true;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                throw new RuntimeException(
-                        "Cannot open connection to database", e);
+                throw new RuntimeException("Cannot open connection to database", e);
             }
             
         }
@@ -60,10 +57,9 @@ public class CrafterDataBaseConnectionManager implements IDatabaseConnectionMana
                 this.connection = DriverManager.getConnection(url);
                 return this.isConnected = true;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                throw new RuntimeException(
-                        "Cannot open connection to database", e);
+                throw new RuntimeException("Cannot open connection to database", e);
             }
             
         }
@@ -78,12 +74,12 @@ public class CrafterDataBaseConnectionManager implements IDatabaseConnectionMana
     protected boolean ensureConnection()
     {
         
-        if (!this.isConnected)
+        if(!this.isConnected)
             return this.connect();
         
         try
         {
-            if (!this.connection.isValid(1))
+            if(!this.connection.isValid(1))
             {
                 
                 this.isConnected = false;
@@ -93,7 +89,7 @@ public class CrafterDataBaseConnectionManager implements IDatabaseConnectionMana
             }
             
         }
-        catch (SQLException e)
+        catch(SQLException e)
         {
             throw new RuntimeException("Cannot reconnect to the database!", e);
         }
@@ -112,7 +108,7 @@ public class CrafterDataBaseConnectionManager implements IDatabaseConnectionMana
         {
             this.connection.close();
         }
-        catch (SQLException e)
+        catch(SQLException e)
         {
             throw new RuntimeException("Cannot close database connection", e);
         }
@@ -188,7 +184,7 @@ public class CrafterDataBaseConnectionManager implements IDatabaseConnectionMana
     {
         return database;
     }
-
+    
     public CrafterDataBaseConnectionManager setDatabase(String database)
     {
         this.database = database;

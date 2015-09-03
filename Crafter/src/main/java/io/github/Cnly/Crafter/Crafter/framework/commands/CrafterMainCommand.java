@@ -20,9 +20,7 @@ public class CrafterMainCommand extends AbstractCrafterCommand
     
     public CrafterMainCommand(JavaPlugin jp)
     {
-        super.setHelp(ChatColor.AQUA + jp.getDescription().getName() + " "
-                + jp.getDescription().getVersion() + " By "
-                + jp.getDescription().getAuthors().get(0));
+        super.setHelp(ChatColor.AQUA + jp.getDescription().getName() + " " + jp.getDescription().getVersion() + " By " + jp.getDescription().getAuthors().get(0));
     }
     
     public List<ICrafterCommand> getSubcommands()
@@ -52,18 +50,18 @@ public class CrafterMainCommand extends AbstractCrafterCommand
         
         String action;
         
-        if (args.length > 0)
+        if(args.length > 0)
             action = args[0].toLowerCase();
         else
             action = "";
         
         ICrafterCommand c = this.searchForCommand(action);
-        if (c != null)
+        if(c != null)
             c.execute(sender, args);
         else
         {
             sender.sendMessage(this.getHelp());
-            for (ICrafterCommand cc : subcommands.values())
+            for(ICrafterCommand cc : subcommands.values())
                 sender.sendMessage(cc.getHelp());
         }
         
@@ -77,7 +75,7 @@ public class CrafterMainCommand extends AbstractCrafterCommand
         if(null != result)
             return result;
         
-        if (!action.equals("help"))
+        if(!action.equals("help"))
             return this.searchForCommand("help");
         else
             return null;

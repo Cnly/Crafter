@@ -17,9 +17,7 @@ public class ResourceUtils
     {
         try
         {
-            IOUtils.copyFileFromStream(
-                    jp.getResource(location.startsWith("/") ? location.substring(1)
-                            : location), dest);
+            IOUtils.copyFileFromStream(jp.getResource(location.startsWith("/") ? location.substring(1) : location), dest);
         }
         catch(IOException e)
         {

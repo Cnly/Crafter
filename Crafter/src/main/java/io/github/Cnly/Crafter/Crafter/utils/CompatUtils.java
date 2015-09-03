@@ -24,16 +24,15 @@ public class CompatUtils
     {
         
         Method m = CACHED_GETONLINEPLAYERS;
-        if (null == m)
+        if(null == m)
         {
             try
             {
                 m = Bukkit.class.getMethod("getOnlinePlayers");
             }
-            catch (NoSuchMethodException | SecurityException e)
+            catch(NoSuchMethodException | SecurityException e)
             {
-                throw new RuntimeException(
-                        "Cannot get method Bukkit.getOnlinePlayers()", e);
+                throw new RuntimeException("Cannot get method Bukkit.getOnlinePlayers()", e);
             }
             CACHED_GETONLINEPLAYERS = m;
         }
@@ -43,25 +42,22 @@ public class CompatUtils
         {
             obj = m.invoke(null, (Object[])null);
         }
-        catch (SecurityException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e)
+        catch(SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
         {
-            throw new RuntimeException(
-                    "Cannot invoke Bukkit.getOnlinePlayers()", e);
+            throw new RuntimeException("Cannot invoke Bukkit.getOnlinePlayers()", e);
         }
         
-        if (obj instanceof Player[])
+        if(obj instanceof Player[])
         {
             return Arrays.asList((Player[])obj);
         }
-        else if (obj instanceof Collection)
+        else if(obj instanceof Collection)
         {
             return (Collection<Player>)obj;
         }
         else
         {
-            throw new RuntimeException(
-                    "Unknown getOnlinePlayers() return type!");
+            throw new RuntimeException("Unknown getOnlinePlayers() return type!");
         }
         
     }
@@ -70,7 +66,8 @@ public class CompatUtils
     {
         for(Player p : CompatUtils.getOnlinePlayers())
         {
-            if(p.getUniqueId().equals(uuid)) return p;
+            if(p.getUniqueId().equals(uuid))
+                return p;
         }
         return null;
     }

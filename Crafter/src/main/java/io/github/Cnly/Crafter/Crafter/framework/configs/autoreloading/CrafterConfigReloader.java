@@ -51,34 +51,31 @@ public class CrafterConfigReloader
         ArrayList<ConfigContainer> containers = new ArrayList<ConfigContainer>();
         ArrayList<IConfigManager> result = new ArrayList<>();
         
-        for (Object cls : this.classes)
+        for(Object cls : this.classes)
         {
             
-            for (Field f : cls.getClass().getDeclaredFields())
+            for(Field f : cls.getClass().getDeclaredFields())
             {
                 
                 f.setAccessible(true);
                 
-                if (!f.isAnnotationPresent(ReloadableConfig.class))
+                if(!f.isAnnotationPresent(ReloadableConfig.class))
                     continue;
-                if (!IConfigManager.class.isAssignableFrom(f.getType()))
+                if(!IConfigManager.class.isAssignableFrom(f.getType()))
                     continue;
                 
                 ReloadableConfig rc = f.getAnnotation(ReloadableConfig.class);
-                if (!rc.group().equals(this.group))
+                if(!rc.group().equals(this.group))
                     continue;
                 int priority = rc.priority();
                 
                 try
                 {
-                    containers.add(new ConfigContainer(priority,
-                            (IConfigManager)f.get(cls)));
+                    containers.add(new ConfigContainer(priority, (IConfigManager)f.get(cls)));
                 }
-                catch (IllegalArgumentException | IllegalAccessException e)
+                catch(IllegalArgumentException | IllegalAccessException e)
                 {
-                    throw new RuntimeException(
-                            "Error occurred while searching for reloadable configs",
-                            e);
+                    throw new RuntimeException("Error occurred while searching for reloadable configs", e);
                 }
                 
             }
@@ -87,7 +84,7 @@ public class CrafterConfigReloader
         
         Collections.sort(containers);
         
-        for (ConfigContainer cc : containers)
+        for(ConfigContainer cc : containers)
             result.add(cc.getConfigManager());
         
         return result;
@@ -95,7 +92,7 @@ public class CrafterConfigReloader
     
     protected void reloadConfigs(List<IConfigManager> managers)
     {
-        for (IConfigManager m : managers)
+        for(IConfigManager m : managers)
             m.load();
     }
     
@@ -115,8 +112,7 @@ public class CrafterConfigReloader
         @Override
         public int compareTo(ConfigContainer o)
         {
-            return this.priority > o.getPriority() ? -1
-                    : (this.priority < o.priority ? 1 : 0);
+            return this.priority > o.getPriority() ? -1 : (this.priority < o.priority ? 1 : 0);
         }
         
         public int getPriority()

@@ -35,13 +35,12 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
      *            registering. If this is null, these functions will throw
      *            exceptions.
      */
-    public CrafterYamlConfigManager(File file, String resourceLocation,
-            boolean copyDefault, JavaPlugin jp)
+    public CrafterYamlConfigManager(File file, String resourceLocation, boolean copyDefault, JavaPlugin jp)
     {
         super(file, resourceLocation, copyDefault, jp);
         this.yml = YamlConfiguration.loadConfiguration(file);
     }
-
+    
     /**
      * The constructor
      * 
@@ -54,8 +53,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
      *            registering. If this is null, these functions will throw
      *            exceptions.
      */
-    public CrafterYamlConfigManager(File file, boolean copyDefault,
-            JavaPlugin jp)
+    public CrafterYamlConfigManager(File file, boolean copyDefault, JavaPlugin jp)
     {
         this(file, null, copyDefault, jp);
     }
@@ -112,7 +110,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
     {
         
         ConfigurationSection section = this.yml.getConfigurationSection(path);
-        if (null == section)
+        if(null == section)
         {
             section = this.yml.createSection(path);
         }
@@ -127,10 +125,9 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         {
             this.yml.save(this.file);
         }
-        catch (IOException e)
+        catch(IOException e)
         {
-            throw new RuntimeException(
-                    "Error occurred while saving config file", e);
+            throw new RuntimeException("Error occurred while saving config file", e);
         }
         return this;
     }
@@ -147,7 +144,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         HashMap<String, String> result = new HashMap<String, String>();
         ConfigurationSection section = this.yml.getConfigurationSection(path);
         
-        for (String key : section.getKeys(false))
+        for(String key : section.getKeys(false))
             result.put(key, section.getString(key));
         
         return result;
@@ -158,7 +155,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         HashMap<String, Integer> result = new HashMap<String, Integer>();
         ConfigurationSection section = this.yml.getConfigurationSection(path);
         
-        for (String key : section.getKeys(false))
+        for(String key : section.getKeys(false))
             result.put(key, section.getInt(key));
         
         return result;
@@ -169,7 +166,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         HashMap<String, Double> result = new HashMap<String, Double>();
         ConfigurationSection section = this.yml.getConfigurationSection(path);
         
-        for (String key : section.getKeys(false))
+        for(String key : section.getKeys(false))
             result.put(key, section.getDouble(key));
         
         return result;
@@ -199,7 +196,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         @SuppressWarnings("unchecked")
         List<E> l = (List<E>)this.yml.getList(path);
         
-        if (null == l)
+        if(null == l)
             l = new ArrayList<E>();
         
         l.add(obj);
@@ -213,7 +210,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
         @SuppressWarnings("unchecked")
         List<E> l = (List<E>)this.yml.getList(path);
         
-        if (null == l)
+        if(null == l)
             return this;
         
         l.remove(obj);
@@ -226,7 +223,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
     {
         return new SimpleAsyncSaveRunnable();
     }
-
+    
     public YamlConfiguration getYamlConfig()
     {
         return this.yml;
@@ -284,7 +281,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
             }
             
         }
-
+        
         @Override
         public void run()
         {
@@ -294,7 +291,8 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
             for(Entry<String, Object> e : snapshotMap.entrySet())
             {
                 Object o = e.getValue();
-                if(o instanceof ConfigurationSection) continue;
+                if(o instanceof ConfigurationSection)
+                    continue;
                 yml.set(e.getKey(), e.getValue());
             }
             
@@ -304,8 +302,7 @@ public class CrafterYamlConfigManager extends AbstractConfigManager
             }
             catch(IOException e1)
             {
-                throw new RuntimeException(
-                        "Error occurred while saving config file", e1);
+                throw new RuntimeException("Error occurred while saving config file", e1);
             }
             
         }

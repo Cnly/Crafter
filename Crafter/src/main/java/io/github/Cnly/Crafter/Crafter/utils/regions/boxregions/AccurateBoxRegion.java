@@ -14,8 +14,7 @@ public class AccurateBoxRegion implements IRegion
     private final double maxZ;
     private final double minZ;
     
-    public AccurateBoxRegion(String worldName, double maxX, double minX,
-            double maxY, double minY, double maxZ, double minZ)
+    public AccurateBoxRegion(String worldName, double maxX, double minX, double maxY, double minY, double maxZ, double minZ)
     {
         super();
         this.worldName = worldName;
@@ -30,9 +29,8 @@ public class AccurateBoxRegion implements IRegion
     public AccurateBoxRegion(Location loc1, Location loc2)
     {
         
-        if (!loc1.getWorld().equals(loc2.getWorld()))
-            throw new IllegalArgumentException(
-                    "Two locations are in different worlds!");
+        if(!loc1.getWorld().equals(loc2.getWorld()))
+            throw new IllegalArgumentException("Two locations are in different worlds!");
         
         double x1 = loc1.getX();
         double x2 = loc2.getX();
@@ -55,9 +53,7 @@ public class AccurateBoxRegion implements IRegion
     public String toString()
     {
         
-        return new StringBuilder().append(this.worldName).append(',')
-                .append(this.maxX).append(',').append(this.minX).append(',')
-                .append(this.maxY).append(',').append(this.minY).append(',')
+        return new StringBuilder().append(this.worldName).append(',').append(this.maxX).append(',').append(this.minX).append(',').append(this.maxY).append(',').append(this.minY).append(',')
                 .append(this.maxZ).append(',').append(this.minZ).toString();
     }
     
@@ -74,8 +70,7 @@ public class AccurateBoxRegion implements IRegion
         double maxZ = Double.parseDouble(split[5]);
         double minZ = Double.parseDouble(split[6]);
         
-        return new AccurateBoxRegion(worldName, maxX, minX, maxY, minY, maxZ,
-                minZ);
+        return new AccurateBoxRegion(worldName, maxX, minX, maxY, minY, maxZ, minZ);
     }
     
     @Override
@@ -88,15 +83,14 @@ public class AccurateBoxRegion implements IRegion
     public boolean isInRegion(Location l)
     {
         
-        if (!l.getWorld().getName().equals(this.worldName))
+        if(!l.getWorld().getName().equals(this.worldName))
             return false;
         
         double x = l.getX();
         double y = l.getY();
         double z = l.getZ();
         
-        if ((x <= maxX && x >= minX) && (y <= maxY && y >= minY)
-                && (z <= maxZ && z >= minZ))
+        if((x <= maxX && x >= minX) && (y <= maxY && y >= minY) && (z <= maxZ && z >= minZ))
             return true;
         else
             return false;
@@ -120,45 +114,38 @@ public class AccurateBoxRegion implements IRegion
         result = prime * result + (int)(temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(minZ);
         result = prime * result + (int)(temp ^ (temp >>> 32));
-        result = prime * result
-                + ((worldName == null) ? 0 : worldName.hashCode());
+        result = prime * result + ((worldName == null) ? 0 : worldName.hashCode());
         return result;
     }
     
     @Override
     public boolean equals(Object obj)
     {
-        if (this == obj)
+        if(this == obj)
             return true;
-        if (obj == null)
+        if(obj == null)
             return false;
-        if (getClass() != obj.getClass())
+        if(getClass() != obj.getClass())
             return false;
         AccurateBoxRegion other = (AccurateBoxRegion)obj;
-        if (Double.doubleToLongBits(maxX) != Double
-                .doubleToLongBits(other.maxX))
+        if(Double.doubleToLongBits(maxX) != Double.doubleToLongBits(other.maxX))
             return false;
-        if (Double.doubleToLongBits(maxY) != Double
-                .doubleToLongBits(other.maxY))
+        if(Double.doubleToLongBits(maxY) != Double.doubleToLongBits(other.maxY))
             return false;
-        if (Double.doubleToLongBits(maxZ) != Double
-                .doubleToLongBits(other.maxZ))
+        if(Double.doubleToLongBits(maxZ) != Double.doubleToLongBits(other.maxZ))
             return false;
-        if (Double.doubleToLongBits(minX) != Double
-                .doubleToLongBits(other.minX))
+        if(Double.doubleToLongBits(minX) != Double.doubleToLongBits(other.minX))
             return false;
-        if (Double.doubleToLongBits(minY) != Double
-                .doubleToLongBits(other.minY))
+        if(Double.doubleToLongBits(minY) != Double.doubleToLongBits(other.minY))
             return false;
-        if (Double.doubleToLongBits(minZ) != Double
-                .doubleToLongBits(other.minZ))
+        if(Double.doubleToLongBits(minZ) != Double.doubleToLongBits(other.minZ))
             return false;
-        if (worldName == null)
+        if(worldName == null)
         {
-            if (other.worldName != null)
+            if(other.worldName != null)
                 return false;
         }
-        else if (!worldName.equals(other.worldName))
+        else if(!worldName.equals(other.worldName))
             return false;
         return true;
     }

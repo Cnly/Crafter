@@ -13,10 +13,8 @@ public abstract class AbstractCrafterCommand implements ICrafterCommand
     protected String permission = null;
     protected boolean playerNeeded = false;
     
-    protected String permissionNotice = ChatColor.RED
-            + "You don't have enough permission!";
-    protected String playerNeededNotice = ChatColor.RED
-            + "The command must be executed by a player!";
+    protected String permissionNotice = ChatColor.RED + "You don't have enough permission!";
+    protected String playerNeededNotice = ChatColor.RED + "The command must be executed by a player!";
     
     protected String action = null;
     protected String help = null;
@@ -45,8 +43,7 @@ public abstract class AbstractCrafterCommand implements ICrafterCommand
     protected IArgumentValidator argumentValidator;
     
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label,
-            String[] args)
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
     {
         this.execute(sender, args);
         return true;
@@ -167,8 +164,7 @@ public abstract class AbstractCrafterCommand implements ICrafterCommand
     }
     
     @Override
-    public ICrafterCommand setArgumentValidator(
-            IArgumentValidator argumentValidator)
+    public ICrafterCommand setArgumentValidator(IArgumentValidator argumentValidator)
     {
         this.argumentValidator = argumentValidator;
         return this;
@@ -181,21 +177,12 @@ public abstract class AbstractCrafterCommand implements ICrafterCommand
         int result = 1;
         result = prime * result + ((action == null) ? 0 : action.hashCode());
         result = prime * result + argumentOffset;
-        result = prime
-                * result
-                + ((argumentValidator == null) ? 0 : argumentValidator
-                        .hashCode());
+        result = prime * result + ((argumentValidator == null) ? 0 : argumentValidator.hashCode());
         result = prime * result + ((help == null) ? 0 : help.hashCode());
-        result = prime * result
-                + ((permission == null) ? 0 : permission.hashCode());
-        result = prime
-                * result
-                + ((permissionNotice == null) ? 0 : permissionNotice.hashCode());
+        result = prime * result + ((permission == null) ? 0 : permission.hashCode());
+        result = prime * result + ((permissionNotice == null) ? 0 : permissionNotice.hashCode());
         result = prime * result + (playerNeeded ? 1231 : 1237);
-        result = prime
-                * result
-                + ((playerNeededNotice == null) ? 0 : playerNeededNotice
-                        .hashCode());
+        result = prime * result + ((playerNeededNotice == null) ? 0 : playerNeededNotice.hashCode());
         return result;
     }
     
