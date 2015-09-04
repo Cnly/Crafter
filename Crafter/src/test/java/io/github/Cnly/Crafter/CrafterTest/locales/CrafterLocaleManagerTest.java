@@ -1,28 +1,37 @@
 package io.github.Cnly.Crafter.CrafterTest.locales;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
 import io.github.Cnly.Crafter.Crafter.framework.locales.CrafterLocaleManager;
-import io.github.Cnly.Crafter.Crafter.utils.IOUtils;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.junit.After;
 import org.junit.Test;
 
 public class CrafterLocaleManagerTest
 {
     
+    @After
+    public void cleanup() throws IOException
+    {
+        Files.delete(Definitions.testLocaleDir.resolve("en_UK.yml"));
+        Files.delete(Definitions.testLocaleDir);
+    }
+    
     @Test
     public void testSimpleLocaleManager() throws IOException
     {
         
-        IOUtils.copyFileFromStream(this.getClass().getResourceAsStream("/locales/en_UK.yml"), new File(Definitions.testLocaleDir.toFile(), "en_UK.yml"));
+        JavaPlugin mockedPlugin = mock(JavaPlugin.class);
+        when(mockedPlugin.getResource("locales/en_UK.yml")).thenReturn(this.getClass().getResourceAsStream("/locales/en_UK.yml"));
         
-        CrafterLocaleManager slm = new CrafterLocaleManager("en_UK", Definitions.testLocaleDir.toFile(), false, null);
+        CrafterLocaleManager slm = new CrafterLocaleManager("en_UK", Definitions.testLocaleDir.toFile(), true, mockedPlugin);
         
         assertTrue(Files.exists(Definitions.testLocaleDir));
         

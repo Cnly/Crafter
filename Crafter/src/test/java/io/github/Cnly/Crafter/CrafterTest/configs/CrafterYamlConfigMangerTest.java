@@ -1,6 +1,7 @@
 package io.github.Cnly.Crafter.CrafterTest.configs;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,22 +12,52 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.github.Cnly.Crafter.Crafter.framework.configs.CrafterYamlConfigManager;
-import io.github.Cnly.Crafter.Crafter.utils.IOUtils;
 import io.github.Cnly.Crafter.CrafterTest.Definitions;
 
-import org.junit.Before;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.junit.After;
 import org.junit.Test;
 
 public class CrafterYamlConfigMangerTest
 {
     
+    @After
+    public void cleanup() throws IOException
+    {
+        for(File f : Definitions.testConfigDir.toFile().listFiles())
+        {
+            f.delete();
+        }
+        Files.delete(Definitions.testConfigDir);
+    }
+    
     @Test
-    public void testBasic() throws IOException
+    public void testFileCreation() throws IOException
     {
         
-        CrafterYamlConfigManager sycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), false, null);
+        
+        JavaPlugin mockedPlugin = mock(JavaPlugin.class);
+        when(mockedPlugin.getResource("testConfig.yml")).thenReturn(this.getClass().getResourceAsStream("/testConfig.yml"));
+        
+        new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), true, mockedPlugin);
         
         assertTrue(Files.exists(Paths.get("target/test/config/testConfig.yml")));
+        
+        assertFalse(Files.exists(Paths.get("target/test/config/404.yml")));
+        CrafterYamlConfigManager sycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "404.yml"), false, null);
+        sycm.save();
+        assertTrue(Files.exists(Paths.get("target/test/config/404.yml")));
+        
+    }
+    
+    @Test
+    public void testValues()
+    {
+        
+        JavaPlugin mockedPlugin = mock(JavaPlugin.class);
+        when(mockedPlugin.getResource("testConfig.yml")).thenReturn(this.getClass().getResourceAsStream("/testConfig.yml"));
+        
+        CrafterYamlConfigManager sycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), true, mockedPlugin);
         
         assertTrue(sycm.isSet("root.one"));
         assertFalse(sycm.isSet("root.orz"));
@@ -44,24 +75,16 @@ public class CrafterYamlConfigMangerTest
         testList.add("b");
         assertEquals(testList, sycm.getStringList("root.one.list"));
         
-        sycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "404.yml"), false, null);
-        sycm.set("a", "v");
-        sycm.save();
-        assertEquals("v", sycm.getString("a"));
-        
-    }
-    
-    @Before
-    public void prepareConfigFile() throws IOException
-    {
-        IOUtils.copyFileFromStream(this.getClass().getResourceAsStream("/testConfig.yml"), new File(Definitions.testConfigDir.toFile(), "testConfig.yml"));
     }
     
     @Test
     public void testAddToList() throws IOException
     {
         
-        CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), false, null);
+        JavaPlugin mockedPlugin = mock(JavaPlugin.class);
+        when(mockedPlugin.getResource("testConfig.yml")).thenReturn(this.getClass().getResourceAsStream("/testConfig.yml"));
+        
+        CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), true, mockedPlugin);
         
         List<String> expected = new ArrayList<>();
         expected.add("a");
@@ -78,7 +101,10 @@ public class CrafterYamlConfigMangerTest
     public void testRemoveFromList() throws IOException
     {
         
-        CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), false, null);
+        JavaPlugin mockedPlugin = mock(JavaPlugin.class);
+        when(mockedPlugin.getResource("testConfig.yml")).thenReturn(this.getClass().getResourceAsStream("/testConfig.yml"));
+        
+        CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), true, mockedPlugin);
         
         List<String> expected = new ArrayList<>();
         expected.add("a");
@@ -95,7 +121,10 @@ public class CrafterYamlConfigMangerTest
     public void testGetConfigurationSection() throws IOException
     {
         
-        CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), false, null);
+        JavaPlugin mockedPlugin = mock(JavaPlugin.class);
+        when(mockedPlugin.getResource("testConfig.yml")).thenReturn(this.getClass().getResourceAsStream("/testConfig.yml"));
+        
+        CrafterYamlConfigManager cycm = new CrafterYamlConfigManager(new File(Definitions.testConfigDir.toFile(), "testConfig.yml"), true, mockedPlugin);
         
         assertFalse(cycm.isSet("root.testGetConfigurationSection"));
         
