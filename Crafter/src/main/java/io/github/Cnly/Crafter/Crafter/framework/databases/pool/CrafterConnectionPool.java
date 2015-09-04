@@ -77,6 +77,7 @@ public class CrafterConnectionPool implements IConnectionPool
                 throw new RuntimeException("Unable to close connection!", e);
             }
         }
+        pool = null;
     }
     
     /**
@@ -95,7 +96,6 @@ public class CrafterConnectionPool implements IConnectionPool
             {
                 return false;
             }
-            
         }
         catch(SQLException e)
         {
