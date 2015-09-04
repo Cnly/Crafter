@@ -15,7 +15,7 @@ public class ArgsLengthValidatorTest
         
         ArgumentLengthValidator exact = new ArgumentLengthValidator().setExactLength(5);
         ArgumentLengthValidator range = new ArgumentLengthValidator().setMode(ValidateMode.RANGE).setMinLength(3).setMaxLength(6);
-        ArgumentLengthValidator list = new ArgumentLengthValidator().setMode(ValidateMode.LIST).setAllowedLengths(new int[]{3, 6, 9});
+        ArgumentLengthValidator list = new ArgumentLengthValidator().setMode(ValidateMode.LIST).setAllowedLengths(3, 6, 9);
         
         assertFalse(exact.validate(new String[]{"1"})); // 1
         assertTrue(exact.validate(new String[]{"1", "1", "1", "1", "1"})); // 5

@@ -88,7 +88,7 @@ public class ArgumentLengthValidator implements IArgumentValidator
         return allowedLengths;
     }
     
-    public ArgumentLengthValidator setAllowedLengths(int[] allowedLengths)
+    public ArgumentLengthValidator setAllowedLengths(int... allowedLengths)
     {
         this.checkMode(ValidateMode.LIST);
         this.allowedLengths = allowedLengths;
