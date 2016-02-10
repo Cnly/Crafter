@@ -4,12 +4,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandMap;
-import org.bukkit.command.PluginCommand;
+import org.bukkit.command.*;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.SimplePluginManager;
@@ -125,6 +123,53 @@ public class CommandUtils
     public static boolean register(Plugin plugin, String commandName, CommandExecutor executor, String... aliases)
     {
         return register(plugin, commandName, executor, null, null, null, aliases);
+    }
+
+    /**
+     * Unregisters a command registered in SimpleCommandMap. Remember to also unregister your commands with fallbackPrefix added.<br />
+     * E.g. <b>Myplugin:mycommand</b> and <b>mycommand</b>
+     * @param key The key in the knownCommands map.
+     */
+    public static void unregister(String key)
+    {
+
+        CommandMap cm = getCommandMap();
+        if(!(cm instanceof SimpleCommandMap))
+        {
+            throw new RuntimeException("CommandMap is not SimpleCommandMap!");
+        }
+
+        cm = (SimpleCommandMap)cm;
+
+        Field knownCommandsField = null;
+        try
+        {
+            knownCommandsField = SimpleCommandMap.class.getDeclaredField("knownCommands");
+        }
+        catch(NoSuchFieldException | SecurityException e)
+        {
+            throw new RuntimeException("Error occurred while getting field knownCommands from SimpleCommandMap", e);
+        }
+
+        boolean accessible = knownCommandsField.isAccessible();
+        knownCommandsField.setAccessible(true);
+
+        Map<String, Command> knownCommands = null;
+        try
+        {
+            knownCommands = (Map<String, Command>)knownCommandsField.get(cm);
+        }
+        catch(IllegalAccessException e)
+        {
+            throw new RuntimeException("Error occurred while getting knownCommands from SimpleCommandMap", e);
+        }
+        finally
+        {
+            knownCommandsField.setAccessible(accessible);
+        }
+
+        knownCommands.remove(key);
+
     }
     
 }
