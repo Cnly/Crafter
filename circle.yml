@@ -1,7 +1,8 @@
 machine:
   java:
     version: oraclejdk7
+test:
+  post:
+    - cp target/Crafter-*.jar $CIRCLE_ARTIFACTS
 general:
   build_dir: Crafter
-  artifacts:
-    - "target/Crafter-*.jar"
