@@ -92,16 +92,45 @@ public class CommandUtils
         
     }
     
+    /**
+     * Registers a command in CommandMap. Remember to unregister your command first if you're trying to re-register.
+     * @param fallbackPrefix The fallback prefix for the command, used when there's another one with the same name.
+     * @param command The command to register.
+     * @return true if command was registered with the passed in label, false
+     *     otherwise, which indicates the fallbackPrefix was used one or more
+     *     times
+     */
     public static boolean register(String fallbackPrefix, Command command)
     {
         return getCommandMap().register(fallbackPrefix, command);
     }
     
+    /**
+     * Registers a command in CommandMap. Remember to unregister your command first if you're trying to re-register.
+     * @param plugin The plugin to register command for.
+     * @param command The command to register.
+     * @return true if command was registered with the passed in label, false
+     *     otherwise, which indicates the fallbackPrefix was used one or more
+     *     times
+     */
     public static boolean register(Plugin plugin, Command command)
     {
         return register(plugin.getDescription().getName(), command);
     }
     
+    /**
+     * Registers a command in CommandMap. Remember to unregister your command first if you're trying to re-register.
+     * @param plugin The plugin to register command for.
+     * @param commandName The command name.
+     * @param executor The executor.
+     * @param usage The usage message.
+     * @param description The description.
+     * @param permission The permission.
+     * @param aliases The aliases for the command.
+     * @return true if command was registered with the passed in label, false
+     *     otherwise, which indicates the fallbackPrefix was used one or more
+     *     times
+     */
     public static boolean register(Plugin plugin, String commandName, CommandExecutor executor, String usage, String description, String permission, String... aliases)
     {
         
@@ -120,6 +149,16 @@ public class CommandUtils
         return register(plugin, pc);
     }
     
+    /**
+     * Registers a command in CommandMap. Remember to unregister your command first if you're trying to re-register.
+     * @param plugin The plugin to register command for.
+     * @param commandName The command name.
+     * @param executor The executor.
+     * @param aliases The aliases for the command.
+     * @return true if command was registered with the passed in label, false
+     *     otherwise, which indicates the fallbackPrefix was used one or more
+     *     times
+     */
     public static boolean register(Plugin plugin, String commandName, CommandExecutor executor, String... aliases)
     {
         return register(plugin, commandName, executor, null, null, null, aliases);
