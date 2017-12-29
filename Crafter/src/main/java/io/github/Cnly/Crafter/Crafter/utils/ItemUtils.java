@@ -3,7 +3,9 @@ package io.github.Cnly.Crafter.Crafter.utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -14,8 +16,8 @@ public class ItemUtils
     {
         throw new AssertionError("This is a util class");
     }
-    
-    @SuppressWarnings("deprecation")
+
+    @Deprecated
     public static ItemStack getItemByIdString(String idString)
     {
         
@@ -30,17 +32,51 @@ public class ItemUtils
         }
         
     }
-    
+
+    @Deprecated
     public static String getIdString(ItemStack is)
     {
-        
-        @SuppressWarnings("deprecation")
+
         String result = String.valueOf(is.getTypeId());
         short durability = is.getDurability();
         
         if(0 != durability)
             result += ":" + String.valueOf(durability);
         
+        return result;
+    }
+
+    public static ItemStack getItemByTypeString(String typeString)
+    {
+        if(typeString.contains(":"))
+        {
+            String[] split = typeString.split(":");
+            Material material = Material.getMaterial(split[0]);
+            if(null == material)
+            {
+                throw new NoSuchElementException("Material not found: " + split[0]);
+            }
+            return new ItemStack(material, 1, Short.parseShort(split[1]));
+        }
+        else
+        {
+            Material material = Material.getMaterial(typeString);
+            if(null == material)
+            {
+                throw new NoSuchElementException("Material not found: " + typeString);
+            }
+            return new ItemStack(material);
+        }
+    }
+
+    public static String getTypeString(ItemStack is)
+    {
+        String result = is.getType().toString();
+        short durability = is.getDurability();
+
+        if(0 != durability)
+            result += ":" + String.valueOf(durability);
+
         return result;
     }
     
